@@ -25,7 +25,7 @@ function getProdCategories() {
     return $prodcategories;
 }
 
-function addProduct($invId, $invName, $invDescription, $invImage, $invThumbnail, 
+function addProduct($invName, $invDescription, $invImage, $invThumbnail, 
         $invPrice, $invStock, $invSize, $invWeight, $invLocation, $categoryId, $invVendor, $invStyle){
     
 
@@ -35,9 +35,9 @@ function addProduct($invId, $invName, $invDescription, $invImage, $invThumbnail,
 
 // The SQL statement    
     
-    $sql = 'INSERT INTO inventory (invId, invName, invDescription, invImage, invThumbnail, 
+    $sql = 'INSERT INTO inventory (invName, invDescription, invImage, invThumbnail, 
         invPrice, invStock, invSize, invWeight, invLocation, categoryId, invVendor, invStyle)
-           VALUES (:invId, :invName, :invDescription, :invImage, :invThumbnail, 
+           VALUES (:invName, :invDescription, :invImage, :invThumbnail, 
         :invPrice, :invStock, :invSize, :invWeight, :invLocation, :categoryId, :invVendor, :invStyle)';
 
 // Create the prepared statement using the acme connection
@@ -48,7 +48,7 @@ function addProduct($invId, $invName, $invDescription, $invImage, $invThumbnail,
 // statement with the actual values in the variables
 // and tells the database the type of data it is
     
-    $stmt->bindValue(':invId', $invId, PDO::PARAM_STR);
+    //$stmt->bindValue(':invId', $invId, PDO::PARAM_STR);
     $stmt->bindValue(':invName', $invName, PDO::PARAM_STR);
     $stmt->bindValue(':invDescription', $invDescription, PDO::PARAM_STR);
     $stmt->bindValue(':invImage', $invImage, PDO::PARAM_STR);
@@ -61,6 +61,49 @@ function addProduct($invId, $invName, $invDescription, $invImage, $invThumbnail,
     $stmt->bindValue(':categoryId', $categoryId, PDO::PARAM_STR);  
     $stmt->bindValue(':invVendor', $invVendor, PDO::PARAM_STR);  
     $stmt->bindValue(':invStyle', $invStyle, PDO::PARAM_STR);      
+
+// Insert the data    
+    
+    $stmt->execute();
+
+// Ask how many rows changed as a result of our insert    
+    
+    $rowsChanged = $stmt->rowCount();
+
+// Close the database interaction    
+    
+    $stmt->closeCursor();    
+
+// Return the indication of success (rows changed)    
+    
+    return $rowsChanged;
+    
+}
+
+
+function addCategory($categoryName){
+    
+
+// Create a connection object using the acme connection function    
+    
+    $db = acmeConnect();
+
+// The SQL statement    
+    
+    $sql = 'INSERT INTO categories (categoryName)
+           VALUES (:categoryName)';
+
+// Create the prepared statement using the acme connection
+    
+    $stmt = $db->prepare($sql);
+
+// The next four lines replace the placeholders in the SQL
+// statement with the actual values in the variables
+// and tells the database the type of data it is
+    
+    //$stmt->bindValue(':invId', $invId, PDO::PARAM_STR);
+    $stmt->bindValue(':categoryName', $categoryName, PDO::PARAM_STR);
+    
 
 // Insert the data    
     
