@@ -7,6 +7,8 @@
 require_once 'library/dbconnect.php';
 // Get the acme model for use as needed
 require_once 'model/acme-model.php';
+// Get the products model for use as needed
+require_once 'model/products-model.php';
 
 $categories = getCategories();
 //var_dump($categories);
@@ -26,6 +28,17 @@ $navList .= '<li class="icon"><a href="javascript:void(0);" style="font-size:15p
 
 //echo $navList;
 //exit;
+
+$prodcategories = getProdCategories();
+
+$prodcatList = "<select name='catId' id='catId'>";
+
+foreach ($prodcategories as $prodcategory) {
+
+    $prodcatList .= "<option value='$prodcategory[categoryId]' name='$prodcategory[categoryName]' id='$prodcategory[categoryName]'>$prodcategory[categoryName]</option>";
+}
+
+$prodcatList .= "</select>";
 
 
 $action = filter_input(INPUT_POST, 'action');
@@ -52,6 +65,19 @@ switch ($action) {
         case 'reg':
         include 'view/registration.php';
         break;
+
+        case 'prodman':
+        include 'view/prod-mgmt.php';
+        break;
+
+        case 'newprod':
+        include 'view/new-prod.php';
+        break;
+
+        case 'newcat':
+        include 'view/new-cat.php';
+        break;
+
     
 }
 
