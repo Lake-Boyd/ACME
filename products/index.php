@@ -7,7 +7,7 @@
 require_once '../library/dbconnect.php';
 // Get the acme model for use as needed
 require_once '../model/acme-model.php';
-// Get the accounts model for use as needed
+// Get the products model for use as needed
 require_once '../model/products-model.php';
 
 $categories = getCategories();
@@ -31,30 +31,13 @@ $navList .= '<li class="icon"><a href="javascript:void(0);" style="font-size:15p
 
 
 
-// The form block below is the structure of a drop-down list that will be used
-// in the add-products page... the list build function will use the internal
-// structure of this form
-
-//<form method="post" action="action_page.php">
-//  <select name="cars">
-//    <option value="volvo">Volvo</option>
-//    <option value="saab">Saab</option>
-//    <option value="fiat">Fiat</option>
-//    <option value="audi">Audi</option>
-//  </select>
-//  <br><br>
-//  <input type="submit">
-//</form>
-
-
-
 $prodcategories = getProdCategories();
 
-$prodcatList = "<select name='catId'>";
+$prodcatList = "<select name='catId' id='catId'>";
 
 foreach ($prodcategories as $prodcategory) {
 
-    $prodcatList .= "<option value='$prodcategory[categoryId]'>$prodcategory[categoryName]</option>";
+    $prodcatList .= "<option value='$prodcategory[categoryId]' name='$prodcategory[categoryName]' id='$prodcategory[categoryName]'>$prodcategory[categoryName]</option>";
 }
 
 $prodcatList .= "</select>";
@@ -66,21 +49,20 @@ $action = filter_input(INPUT_POST, 'action');
 if ($action == NULL) {
     $action = filter_input(INPUT_GET, 'action');
     if ($action == NULL) {
-         header('location: /acme/index.php?action=addprod');
+         header('location: /acme/index.php?action=prodman');
             exit;
         //$action = 'home';
     }
 }
 
 switch ($action) {
-    case 'addproduct':
-        //echo 'You are in the register case statement.';
+    case 'addprod':
+        //echo 'You are in the add product case statement.';
         //Filter and store the data
         
-//$invId, $invName, $invDescription, $invImage, $invThumbnail, 
-//        $invPrice, $invStock, $invSize, $invWeight, $invLocation, $categoryId, $invVendor, $invStyle        
+       
         
-        $invId = filter_input(INPUT_POST, 'invid');
+
         $invName = filter_input(INPUT_POST, 'invname');
         $invDescription = filter_input(INPUT_POST, 'invdescription');
         $invImage = filter_input(INPUT_POST, 'invimage');
@@ -90,39 +72,80 @@ switch ($action) {
         $invSize = filter_input(INPUT_POST, 'invsize');
         $invWeight = filter_input(INPUT_POST, 'invweight');
         $invLocation = filter_input(INPUT_POST, 'invlocation');
-        $categoryId = filter_input(INPUT_POST, 'categoryid');
+        $categoryId = filter_input(INPUT_POST, 'catId');
         $invVendor = filter_input(INPUT_POST, 'invvendor');
         $invStyle = filter_input(INPUT_POST, 'invstyle');
-       
+        
+//        echo $invName .'<br>';
+//        echo $invDescription .'<br>';
+//        echo $invImage .'<br>';        
+//        echo $invThumbnail .'<br>';
+//        echo $invPrice .'<br>';
+//        echo $invStock .'<br>';
+//        echo $invSize .'<br>';
+//        echo $invWeight .'<br>';
+//        echo $invLocation .'<br>';
+//        echo $categoryId .'<br>';
+//        echo $invVendor .'<br>';
+//        echo $invStyle .'<br>';   
+//        exit;
 
         // Check for missing data
-        if (empty($invId) || empty($invName) || empty($invDescription) || empty($invImage) ||
+        if (empty($invName) || empty($invDescription) || empty($invImage) ||
            empty($invThumbnail) || empty($invPrice) || empty($invStock) || empty($invSize) ||
            empty($invWeight) || empty($invLocation) || empty($categoryId) || empty($invVendor) ||                   
             empty($invStyle)) {
             $message = '<p>Please provide information for all empty form fields.</p>';
-            include '../view/registration.php';
+            include '../view/new-prod.php';
             exit;
         }
 
         // Send the data to the model
-        $addOutcome = addProduct($invId, $invName, $invDescription, $invImage, $invThumbnail, 
+        $addOutcome = addProduct($invName, $invDescription, $invImage, $invThumbnail, 
         $invPrice, $invStock, $invSize, $invWeight, $invLocation, $categoryId, $invVendor, $invStyle);
 
         // Check and report the result
         if ($addOutcome === 1) {
             $message = "<p>Thanks for adding a product to the inventory.</p>";
-            include '../view/productmanagement.php';
+            include '../view/prod-mgmt.php';
             exit;
         } else {
             $message = "<p>Sorry, but the creation of a new product failed. Please try again.</p>";
-            include '../view/productmanagement.php';
+            include '../view/prod-mgmt.php';
+            exit;
+        }
+        break;
+        
+        
+    case 'addcat':
+        //echo 'You are in the add category case statement.';
+        //Filter and store the data
 
+        $catName = filter_input(INPUT_POST, 'categoryname');
+
+        // Check for missing data
+        if (empty($catName)) {
+            $message = '<p>Please provide information for all empty form fields.</p>';
+            include '../view/new-cat.php';
             exit;
         }
 
+        // Send the data to the model
+        $addOutcome = addCategory($catName);
 
-        break;
+        // Check and report the result
+        if ($addOutcome === 1) {
+            $message = "<p>Thanks for adding a category to the database.</p>";
+            include '../view/prod-mgmt.php';
+            exit;
+        } else {
+            $message = "<p>Sorry, but the creation of a new category failed. Please try again.</p>";
+            include '../view/prod-mgmt.php';
+            exit;
+        }
+        break;        
+        
+        
 }
 
 
