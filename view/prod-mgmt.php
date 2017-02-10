@@ -38,7 +38,11 @@ and open the template in the editor.
                 <h1 class="login-title">Manage Products</h1>
                 <section class="login-buttons">
                     
-                    
+                    <?php
+                        if (isset($message)) {
+                         echo $message;
+                        }
+                        ?>                    
 <!--                    <form method="post" action="/acme/accounts/index.php">
                          <label for="username">User name</label> 
                         <input type="text" name="username" id="username" placeholder="Username" required>
