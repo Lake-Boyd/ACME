@@ -35,7 +35,7 @@ $prodcatList = "<select name='catId' id='catId'>";
 
 foreach ($prodcategories as $prodcategory) {
 
-    $prodcatList .= "<option value='$prodcategory[categoryId]' name='$prodcategory[categoryName]' id='$prodcategory[categoryName]'>$prodcategory[categoryName]</option>";
+    $prodcatList .= "<option value='$prodcategory[categoryId]' id='$prodcategory[categoryName]'>$prodcategory[categoryName]</option>";
 }
 
 $prodcatList .= "</select>";
@@ -72,10 +72,12 @@ switch ($action) {
 
         case 'newprod':
         include 'view/new-prod.php';
+        //header("Location: http://localhost/ACME/view/new-prod.php");            
         break;
 
         case 'newcat':
         include 'view/new-cat.php';
+        //header("Location: http://localhost/ACME/view/new-cat.php");             
         break;
 
     

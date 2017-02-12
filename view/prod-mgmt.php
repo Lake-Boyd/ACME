@@ -37,7 +37,7 @@ and open the template in the editor.
 
                 <h1 class="login-title">Manage Products</h1>
                 <section class="login-buttons">
-                    
+                    <h3>Add Products or Categories</h3>
                     <?php
                         if (isset($message)) {
                          echo $message;
@@ -51,8 +51,8 @@ and open the template in the editor.
                         <input type="submit" value="Sign In" id="sign-in">
                     </form>-->
                     <ul>    
-                        <li><a href='.?action=newprod' title="New Product">Add a new product</a></li>
-                        <li><a href='.?action=newcat' title="New Category">Add a new category</a></li>
+                        <li><a href='http://localhost/ACME/.?action=newprod' title="New Product">Add a new product</a></li>
+                        <li><a href='http://localhost/ACME/.?action=newcat' title="New Category">Add a new category</a></li>
                     </ul>
 
                 </section>

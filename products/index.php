@@ -31,6 +31,8 @@ $navList .= '<li class="icon"><a href="javascript:void(0);" style="font-size:15p
 
 
 
+
+
 $prodcategories = getProdCategories();
 
 $prodcatList = "<select name='catId' id='catId'>";
@@ -107,10 +109,12 @@ switch ($action) {
         // Check and report the result
         if ($addOutcome === 1) {
             $message = "<p>Thanks for adding a product to the inventory.</p>";
+            //header("Location: http://localhost/ACME/view/prod-mgmt.php");
             include '../view/prod-mgmt.php';
             exit;
         } else {
             $message = "<p>Sorry, but the creation of a new product failed. Please try again.</p>";
+            //header("Location: http://localhost/ACME/view/prod-mgmt.php");
             include '../view/prod-mgmt.php';
             exit;
         }
@@ -136,10 +140,12 @@ switch ($action) {
         // Check and report the result
         if ($addOutcome === 1) {
             $message = "<p>Thanks for adding a category to the database.</p>";
-            include '../view/prod-mgmt.php';
+            header("Location: http://localhost/ACME/products/");
+            //include '../view/prod-mgmt.php';
             exit;
         } else {
             $message = "<p>Sorry, but the creation of a new category failed. Please try again.</p>";
+            //header("Location: http://localhost/ACME/products/");
             include '../view/prod-mgmt.php';
             exit;
         }
