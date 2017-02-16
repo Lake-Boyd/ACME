@@ -49,13 +49,19 @@ and open the template in the editor.
                     <form method="post" action="/acme/accounts/index.php">
 
                         <label for="firstname">First Name</label>
-                        <input type="text" name="firstname" id="firstname">
+                        <input type="text" name="firstname" id="firstname" 
+                            <?php if(isset($firstname)){echo "value='$firstname'";} ?> required>
                         <label for="lastname">Last Name</label>
-                        <input type="text" name="lastname" id="lastname">
+                        <input type="text" name="lastname" id="lastname"
+                            <?php if(isset($lastname)){echo "value='$lastname'";} ?> required>
                         <label for="email">Email</label>
-                        <input type="email" name="email" id="email" placeholder="Email">
+                        <input type="email" name="email" id="email" placeholder="Email"
+                            <?php if(isset($email)){echo "value='$email'";} ?> required>
                         <label for="password">Password</label>
-                        <input type="password" name="password" id="password" placeholder="Password">
+                        <span class="reduced">Passwords must be at least 8 characters and contain at least 1 number, 
+                            1 capital letter and 1 special character</span>
+                        <input type="password" name="password" id="password" placeholder="Password" required 
+                               pattern="(?=^.{8,}$)(?=.*\d)(?=.*\W+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$">
                      
                         <button type="submit" name="register" id="register">Submit Registration</button>
                         <!-- Add the action key - value pair -->

@@ -45,11 +45,17 @@ and open the template in the editor.
                         ?>                    
                     
                     
-                    <form method="post" action="/acme/accounts/index.php">
-                        <!-- <label for="username">User name</label> -->
-                        <input type="text" name="username" id="username" placeholder="Username" required>
-                        <!-- <label for="email">Email</label> -->
+                    <form method="post" action=".?action=home">
+
+                        <label for="email">Email</label>
                         <input type="email" name="email" id="email" placeholder="Email" required>
+                        
+                        <label for="password">Password</label>
+                        <span>Passwords must be at least 8 characters and contain at least 1 number, 
+                            1 capital letter and 1 special character</span>                        
+                        <input type="password" name="password" id="password" placeholder="Password" 
+                         required pattern="(?=^.{8,}$)(?=.*\d)(?=.*\W+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$">                        
+                        
                         <input type="submit" value="Sign In" id="sign-in">
                     </form>
                     <form method="post" action=".?action=reg">
