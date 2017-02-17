@@ -75,9 +75,30 @@ switch ($action) {
 
             exit;
         }
-
-
         break;
+        
+    case 'Login':
+ 
+        $email = filter_input(INPUT_POST, 'email');
+        $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);        
+        $email = checkEmail($email);
+        $checkPassword = checkPassword($password);
+
+        if (empty($email) || empty($checkPassword)) {
+            $message = '<p>Please provide information for all empty form fields.</p>';
+            include '../view/login.php';
+            exit;
+        } else {
+            $message = "Login successful!</p>";
+            include '../view/login.php';
+            exit;            
+            
+        }       
+
+        
+        break;        
+        
+
 }
 
 

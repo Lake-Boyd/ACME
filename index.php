@@ -10,6 +10,8 @@ require_once 'model/acme-model.php';
 // Get the products model for use as needed
 require_once 'model/products-model.php';
 
+
+
 $categories = getCategories();
 //var_dump($categories);
 //exit;
@@ -79,6 +81,7 @@ switch ($action) {
         include 'view/new-cat.php';
         //header("Location: http://localhost/ACME/view/new-cat.php");             
         break;
+
 
     
 }

@@ -45,10 +45,11 @@ and open the template in the editor.
                         ?>                    
                     
                     
-                    <form method="post" action=".?action=home">
+                    <form method="post" action="/acme/accounts/index.php">
 
                         <label for="email">Email</label>
-                        <input type="email" name="email" id="email" placeholder="Email" required>
+                        <input type="email" name="email" id="email" placeholder="Email" 
+                            <?php if(isset($email)){echo "value='$email'";} ?> required>
                         
                         <label for="password">Password</label>
                         <span>Passwords must be at least 8 characters and contain at least 1 number, 
@@ -56,7 +57,8 @@ and open the template in the editor.
                         <input type="password" name="password" id="password" placeholder="Password" 
                          required pattern="(?=^.{8,}$)(?=.*\d)(?=.*\W+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$">                        
                         
-                        <input type="submit" value="Sign In" id="sign-in">
+                        <button type="submit" name="Login" id="Login">Login</button>
+                        <input type="hidden" name="action" value="Login">
                     </form>
                     <form method="post" action=".?action=reg">
                         <button type="submit" name="reg" id="reg">Register a new account</button>
