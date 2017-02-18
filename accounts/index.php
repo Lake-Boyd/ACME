@@ -12,24 +12,7 @@ require_once '../model/accounts-model.php';
 // Get the functions library for use as needed
 require_once '../library/functions.php';
 
-$categories = getCategories();
-//var_dump($categories);
-//exit;
-
-$navList = '<ul class="topnav" id="myTopnav">';
-$navList .= "<li><a href='.' title='View the Acme home page'>Home</a></li>";
-foreach ($categories as $category) {
-
-    $navList .= "<li><a href='.?action=$category[categoryName]"
-            . "' title='View our $category[categoryName] "
-            . "product line'>$category[categoryName]</a></li>";
-}
-
-$navList .= '<li class="icon"><a href="javascript:void(0);" style="font-size:15px;" '
-        . 'onclick="myFunction()">☰</a></li></ul>';
-
-//echo $navList;
-//exit;
+$navList = makeNavList();
 
 
 $action = filter_input(INPUT_POST, 'action');

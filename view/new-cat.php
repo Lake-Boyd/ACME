@@ -47,8 +47,10 @@ This page is for managing the product database.
                     <form method="post" action="/acme/products/index.php" id="addform">
 
                         <label for="categoryname">Category Name</label>
+                        <span class="reduced">Enter the name as upper or lower case letters. Do not use numbers or special characters.</span>                           
                         <input type="text" name="categoryname" id="categoryname" 
-                            <?php if(isset($categoryname)){echo "value='$categoryname'";} ?> required>
+                            <?php if(isset($catName)){echo "value='$catName'";} ?> required
+                            pattern="^[a-zA-Z]+$"> 
                         
                         <button type="submit" name="addcategory" id="addcategory">Submit Category</button>
                         <!-- Add the action key - value pair -->

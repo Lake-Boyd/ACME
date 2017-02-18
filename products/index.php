@@ -12,24 +12,7 @@ require_once '../model/products-model.php';
 // Get the functions library for use as needed
 require_once '../library/functions.php';
 
-$categories = getCategories();
-//var_dump($categories);
-//exit;
-
-$navList = '<ul class="topnav" id="myTopnav">';
-$navList .= "<li><a href='.' title='View the Acme home page'>Home</a></li>";
-foreach ($categories as $category) {
-
-    $navList .= "<li><a href='.?action=$category[categoryName]"
-            . "' title='View our $category[categoryName] "
-            . "product line'>$category[categoryName]</a></li>";
-}
-
-$navList .= '<li class="icon"><a href="javascript:void(0);" style="font-size:15px;" '
-        . 'onclick="myFunction()">☰</a></li></ul>';
-
-//echo $navList;
-//exit;
+$navList = makeNavList();
 
 
 
@@ -127,10 +110,11 @@ switch ($action) {
         //echo 'You are in the add category case statement.';
         //Filter and store the data
 
-        $catName = filter_input(INPUT_POST, 'categoryname');
+        $catName = filter_input(INPUT_POST, 'categoryname', FILTER_SANITIZE_STRING);
+        $checkCat = checkCatName($catName);  
 
         // Check for missing data
-        if (empty($catName)) {
+        if (empty($checkCat)) {
             $message = '<p>Please provide information for all empty form fields.</p>';
             include '../view/new-cat.php';
             exit;
