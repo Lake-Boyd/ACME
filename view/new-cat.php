@@ -47,7 +47,8 @@ This page is for managing the product database.
                     <form method="post" action="/acme/products/index.php" id="addform">
 
                         <label for="categoryname">Category Name</label>
-                        <input type="text" name="categoryname" id="categoryname">
+                        <input type="text" name="categoryname" id="categoryname" 
+                            <?php if(isset($categoryname)){echo "value='$categoryname'";} ?> required>
                         
                         <button type="submit" name="addcategory" id="addcategory">Submit Category</button>
                         <!-- Add the action key - value pair -->

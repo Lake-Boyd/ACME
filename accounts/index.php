@@ -61,6 +61,9 @@ switch ($action) {
             exit;
         }
 
+        // hash the checked password
+        $password = password_hash($password, PASSWORD_DEFAULT);
+        
         // Send the data to the model
         $regOutcome = regVisitor($firstname, $lastname, $email, $password);
 

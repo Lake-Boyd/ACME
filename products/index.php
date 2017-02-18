@@ -9,6 +9,8 @@ require_once '../library/dbconnect.php';
 require_once '../model/acme-model.php';
 // Get the products model for use as needed
 require_once '../model/products-model.php';
+// Get the functions library for use as needed
+require_once '../library/functions.php';
 
 $categories = getCategories();
 //var_dump($categories);
@@ -34,15 +36,12 @@ $navList .= '<li class="icon"><a href="javascript:void(0);" style="font-size:15p
 
 
 $prodcategories = getProdCategories();
-
-$prodcatList = "<select name='catId' id='catId'>";
-
-foreach ($prodcategories as $prodcategory) {
-
-    $prodcatList .= "<option value='$prodcategory[categoryId]' name='$prodcategory[categoryName]' id='$prodcategory[categoryName]'>$prodcategory[categoryName]</option>";
-}
-
-$prodcatList .= "</select>";
+//$prodcatList = "<select name='catId' id='catId'>";
+//foreach ($prodcategories as $prodcategory) {
+//    $prodcatList .= "<option value='$prodcategory[categoryId]' name='$prodcategory[categoryName]'"
+//            . " id='$prodcategory[categoryName]'>$prodcategory[categoryName]</option>";
+//}
+//$prodcatList .= "</select>";
 //echo $prodcatList;
 //exit;
 
@@ -65,18 +64,18 @@ switch ($action) {
        
         
 
-        $invName = filter_input(INPUT_POST, 'invname');
-        $invDescription = filter_input(INPUT_POST, 'invdescription');
-        $invImage = filter_input(INPUT_POST, 'invimage');
-        $invThumbnail = filter_input(INPUT_POST, 'invthumbnail');        
-        $invPrice = filter_input(INPUT_POST, 'invprice');
-        $invStock = filter_input(INPUT_POST, 'invstock');
-        $invSize = filter_input(INPUT_POST, 'invsize');
-        $invWeight = filter_input(INPUT_POST, 'invweight');
-        $invLocation = filter_input(INPUT_POST, 'invlocation');
-        $categoryId = filter_input(INPUT_POST, 'catId');
-        $invVendor = filter_input(INPUT_POST, 'invvendor');
-        $invStyle = filter_input(INPUT_POST, 'invstyle');
+        $invName = filter_input(INPUT_POST, 'invname', FILTER_SANITIZE_STRING);
+        $invDescription = filter_input(INPUT_POST, 'invdescription', FILTER_SANITIZE_STRING);
+        $invImage = filter_input(INPUT_POST, 'invimage', FILTER_SANITIZE_STRING);
+        $invThumbnail = filter_input(INPUT_POST, 'invthumbnail', FILTER_SANITIZE_STRING);        
+        $invPrice = filter_input(INPUT_POST, 'invprice', FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+        $invStock = filter_input(INPUT_POST, 'invstock', FILTER_SANITIZE_NUMBER_INT);
+        $invSize = filter_input(INPUT_POST, 'invsize', FILTER_SANITIZE_STRING);
+        $invWeight = filter_input(INPUT_POST, 'invweight', FILTER_SANITIZE_STRING);
+        $invLocation = filter_input(INPUT_POST, 'invlocation', FILTER_SANITIZE_STRING);
+        $categoryId = filter_input(INPUT_POST, 'catId', FILTER_SANITIZE_STRING);
+        $invVendor = filter_input(INPUT_POST, 'invvendor', FILTER_SANITIZE_STRING);
+        $invStyle = filter_input(INPUT_POST, 'invstyle', FILTER_SANITIZE_STRING);
         
 //        echo $invName .'<br>';
 //        echo $invDescription .'<br>';
@@ -91,6 +90,9 @@ switch ($action) {
 //        echo $invVendor .'<br>';
 //        echo $invStyle .'<br>';   
 //        exit;
+        
+        $invPrice = checkInvPrice($invPrice);
+        $invStock = checkInvStock($invStock);        
 
         // Check for missing data
         if (empty($invName) || empty($invDescription) || empty($invImage) ||

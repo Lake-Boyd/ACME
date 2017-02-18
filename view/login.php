@@ -51,8 +51,8 @@ and open the template in the editor.
                         <input type="email" name="email" id="email" placeholder="Email" 
                             <?php if(isset($email)){echo "value='$email'";} ?> required>
                         
-                        <label for="password">Password</label>
-                        <span>Passwords must be at least 8 characters and contain at least 1 number, 
+                        <label for="password" class="passwordlabel">Password</label>
+                        <span class="reduced">Passwords must be at least 8 characters and contain at least 1 number, 
                             1 capital letter and 1 special character</span>                        
                         <input type="password" name="password" id="password" placeholder="Password" 
                          required pattern="(?=^.{8,}$)(?=.*\d)(?=.*\W+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$">                        

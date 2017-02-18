@@ -280,6 +280,20 @@ form input,button {
 }
 
 
+
+
+.reduced {
+	
+	display: block;
+	
+	font-size:.7em;	
+	margin-left: 10px;
+	margin-top: 3px;
+	font-style: italic;
+	
+}
+
+
     
         
 @media screen and (max-width:640px) {

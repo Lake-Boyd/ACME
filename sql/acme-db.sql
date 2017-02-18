@@ -20,7 +20,7 @@ CREATE TABLE `inventory` (
   `invDescription` text NOT NULL,
   `invImage` varchar(50) NOT NULL DEFAULT '',
   `invThumbnail` varchar(50) NOT NULL DEFAULT '',
-  `invPrice` decimal(10,0) NOT NULL DEFAULT '0',
+  `invPrice` decimal(10,2) NOT NULL DEFAULT '0',
   `invStock` smallint(6) NOT NULL DEFAULT '0',
   `invSize` smallint(6) NOT NULL DEFAULT '0',
   `invWeight` smallint(6) NOT NULL DEFAULT '0',
