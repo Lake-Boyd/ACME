@@ -45,7 +45,7 @@ and open the template in the editor.
                         ?>                    
                     
                     
-                    <form method="post" action="/acme/accounts/index.php">
+                    <form method="post" action="/acme/accounts/">
 
                         <label for="email">Email</label>
                         <input type="email" name="email" id="email" placeholder="Email" 

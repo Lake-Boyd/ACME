@@ -46,3 +46,39 @@ function regVisitor($firstname, $lastname, $email, $password){
     return $rowsChanged;
     
 }
+
+// check for existing email address
+
+function checkExistingEmail($email){
+    
+    $db = acmeConnect();
+    $sql = 'SELECT clientEmail FROM clients WHERE clientEmail = :email';
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':email', $email, PDO::PARAM_STR);
+    $stmt->execute();
+    $matchEmail = $stmt->fetch(PDO::FETCH_NUM);
+    if (empty($matchEmail)){
+        return 0;
+        //echo 'Nothing found';
+        //exit;
+        } else {
+        return 1;
+        //echo 'Match found';
+        //exit;        
+        }
+   
+}
+
+
+// Get client data based on an email address
+function getClient($email){
+  $db = acmeConnect();
+  $sql = 'SELECT clientId, clientFirstname, clientLastname, '
+          . 'clientEmail, clientLevel, clientPassword FROM clients WHERE clientEmail = :email';
+  $stmt = $db->prepare($sql);
+  $stmt->bindValue(':email', $email, PDO::PARAM_STR);
+  $stmt->execute();
+  $clientData = $stmt->fetch(PDO::FETCH_ASSOC);
+  $stmt->closeCursor();
+  return $clientData;
+}

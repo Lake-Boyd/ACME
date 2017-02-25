@@ -12,6 +12,11 @@ require_once '../model/products-model.php';
 // Get the functions library for use as needed
 require_once '../library/functions.php';
 
+//Create or acces a session 
+session_start();
+
+
+
 $navList = makeNavList();
 
 

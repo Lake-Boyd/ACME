@@ -10,6 +10,10 @@
         <div class="bannerlinks">
 
             <div id="myaccount">
+                
+                <?php if(isset($cookieFirstname)){
+                echo "<span class='welcome'>Welcome $cookieFirstname</span>";} ?>
+                
                 <a href='.?action=login' title='Login'>  
                     <img src="http://localhost/ACME/images/account.gif" alt="account image">My Account</a>
 

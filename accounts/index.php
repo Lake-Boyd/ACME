@@ -12,6 +12,9 @@ require_once '../model/accounts-model.php';
 // Get the functions library for use as needed
 require_once '../library/functions.php';
 
+//Create or acces a session 
+session_start();
+
 $navList = makeNavList();
 
 
@@ -25,6 +28,11 @@ if ($action == NULL) {
     }
 }
 
+
+if (isset($_COOKIE['firstname'])){
+    $cookieFirstname = filter_input(INPUT_COOKIE, 'firstname', FILTER_SANITIZE_STRING);
+    }
+
 switch ($action) {
     case 'register':
         //echo 'You are in the register case statement.';
@@ -37,6 +45,16 @@ switch ($action) {
         $email = checkEmail($email);
         $checkPassword = checkPassword($password);
 
+        //check for existing email address
+        $existingEmail = checkExistingEmail($email);
+        if ($existingEmail){
+            $message = '<p class = "notice">That email already exists. '
+                    . 'Do you wish to login instead?</p>';
+            include '../view/login.php';
+            exit;
+        }
+        
+        
         // Check for missing data
         if (empty($firstname) || empty($lastname) || empty($email) || empty($checkPassword)) {
             $message = '<p>Please provide information for all empty form fields.</p>';
@@ -52,6 +70,9 @@ switch ($action) {
 
         // Check and report the result
         if ($regOutcome === 1) {
+            // set the cookie
+            setcookie('firstname', $firstname, strtotime('+1 year'), '/');
+            //set and include the message
             $message = "<p>Thanks for registering $firstname. Please use your email and password to login.</p>";
             include '../view/login.php';
             exit;
@@ -62,24 +83,64 @@ switch ($action) {
             exit;
         }
         break;
+
+        
+
         
     case 'Login':
  
-        $email = filter_input(INPUT_POST, 'email');
-        $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);        
-        $email = checkEmail($email);
-        $checkPassword = checkPassword($password);
+//        $email = filter_input(INPUT_POST, 'email');
+//        $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);        
+//        $email = checkEmail($email);
+//        $checkPassword = checkPassword($password);
+//
+//        if (empty($email) || empty($checkPassword)) {
+//            $message = '<p>Please provide information for all empty form fields.</p>';
+//            include '../view/login.php';
+//            exit;
+//        } else {
+//            $message = "Login successful!</p>";
+//            include '../view/login.php';
+//            exit;            
+//            
+//        } 
+        
+            $email = filter_input(INPUT_POST, 'email');
+            $email = checkEmail($email);
+            $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
+            $passwordCheck = checkPassword($password);
 
-        if (empty($email) || empty($checkPassword)) {
-            $message = '<p>Please provide information for all empty form fields.</p>';
-            include '../view/login.php';
-            exit;
-        } else {
-            $message = "Login successful!</p>";
-            include '../view/login.php';
-            exit;            
-            
-        }       
+            // Run basic checks, return if errors
+            if (empty($email) || empty($passwordCheck)) {
+              $message = '<p class="notice">Please provide a valid email address and password.</p>';
+              include '../view/login.php';
+              exit;
+            }
+
+            // A valid password exists, proceed with the login process
+            // Query the client data based on the email address
+            $clientData = getClient($email);
+            // Compare the password just submitted against
+            // the hashed password for the matching client
+            $hashCheck = password_verify($password, $clientData['clientPassword']);
+            // If the hashes don't match create an error
+            // and return to the login view
+            if (!$hashCheck) {
+              $message = '<p class="notice">Please check your password and try again.</p>';
+              include '../view/login.php';
+              exit;
+            }
+            // A valid user exists, log them in
+            $_SESSION['loggedin'] = TRUE;
+            // Remove the password from the array
+            // the array_pop function removes the last
+            // element from an array
+            array_pop($clientData);
+            // Store the array into the session
+            $_SESSION['clientData'] = $clientData;
+            // Send them to the admin view
+            include '../view/admin.php';
+            exit;        
 
         
         break;        
