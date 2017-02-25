@@ -47,7 +47,7 @@ and open the template in the editor.
                 <h1 class="login-title">
                     
                     <?php 
-                        echo $clientData['clientFirstname'] . " " . $clientData['clientLastname'];
+                        echo $_SESSION['clientData']['clientFirstname'] . " " . $_SESSION['clientData']['clientLastname'];
                     ?></h1>
                 
                 <section class="login-buttons">
@@ -55,25 +55,34 @@ and open the template in the editor.
                     <ul class="userdata">
                         <li>First Name:
                             <?php 
-                                echo " ". $clientData['clientFirstname'];
+                                echo " ". $_SESSION['clientData']['clientFirstname'];
                             ?></li>                       
 
                         <li>Last Name:
                             <?php 
-                                echo " ". $clientData['clientLastname'];
+                                echo " ". $_SESSION['clientData']['clientLastname'];
                             ?></li>                         
                         <li>Email:
                             <?php 
-                                echo " ". $clientData['clientEmail'];
+                                echo " ". $_SESSION['clientData']['clientEmail'];
                             ?></li>                       
 
                         <li>Level:
                             <?php 
-                                echo " ". $clientData['clientLevel'];
+                                echo " ". $_SESSION['clientData']['clientLevel'];
                             ?></li>
-
+                        
                     </ul>
- 
+
+                            <?php 
+                                if ($_SESSION['clientData']['clientLevel'] > 1){
+                                  
+                                    echo "<p class='products'><a href='../products/'>Products</a></p>";
+                                    
+                                } 
+                            ?>                    
+                    
+                    
                 </section>
 
             </main>
