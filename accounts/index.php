@@ -145,6 +145,19 @@ switch ($action) {
         
         break;        
         
+    case 'Logout':
+        
+        // remove all session variables
+        session_unset(); 
+
+        // destroy the session 
+        session_destroy();
+        //go to the home view
+        // header("Location: http://localhost/ACME/view/home.php");
+        include '../view/admin.php';
+        exit;        
+        
+        break;
 
 }
 

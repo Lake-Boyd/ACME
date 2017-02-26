@@ -114,6 +114,22 @@ header nav {
 	
 	}
 
+
+.welcome p {
+	color: #888;
+	font-size: .6em;
+	font-style: italic;
+	
+}
+
+.products {
+	
+	margin-left: 10px;
+	
+}
+
+
+
 ul.topnav {
 
 	margin: 0px;
