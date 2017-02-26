@@ -9,7 +9,7 @@
     
         <div class="bannerlinks">
 
-            <div class="welcomeMessage">
+
             <?php 
          
                 if (isset($_SESSION['loggedin'])) {
@@ -26,12 +26,7 @@
                         . "</div>";                    
                 }   
                ?> 
-            </div>
-            
-        <!--    <div id="myaccount">
-                <a href='.?action=login' title='Login'>  
-                    <img src="http://localhost/ACME/images/account.gif" alt="account image">My Account</a>
-            </div> -->
+
 
             <div id="help">
 
