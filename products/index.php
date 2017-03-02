@@ -15,42 +15,64 @@ require_once '../library/functions.php';
 //Create or acces a session 
 session_start();
 
-
-
 $navList = makeNavList();
 
 
 
-
-
 $prodcategories = getProdCategories();
-//$prodcatList = "<select name='catId' id='catId'>";
-//foreach ($prodcategories as $prodcategory) {
-//    $prodcatList .= "<option value='$prodcategory[categoryId]' name='$prodcategory[categoryName]'"
-//            . " id='$prodcategory[categoryName]'>$prodcategory[categoryName]</option>";
-//}
-//$prodcatList .= "</select>";
-//echo $prodcatList;
-//exit;
 
 
 $action = filter_input(INPUT_POST, 'action');
 if ($action == NULL) {
     $action = filter_input(INPUT_GET, 'action');
     if ($action == NULL) {
-         header('location: /acme/index.php?action=prodman');
-            exit;
+         // header('location: ../view/?action=prodman');
+         $action = 'prodman';
+
+          //  exit;
         //$action = 'home';
     }
 }
 
 switch ($action) {
+    
+    case 'prodman':
+        $products = getProductBasics();
+        if (count ($products) > 0){
+            $prodList = '<table>';
+            $prodList .= '<thead>';
+            $prodList .= '<tr><th>Product Name</th><td>&nbsp;</td><td>&nbsp;</td></tr>';
+
+            $prodList .= '</thead>';
+            $prodList .= '<tbody>';
+            
+            foreach ($products as $product){
+                $prodList .= "<tr><td>$product[invName]</td>";
+                $prodList .= "<td><a href='/acme/products?action=mod&id=$product[invId]' title='Click to modify'>Modify</a></td>";
+                $prodList .= "<td><a href='/acme/products?action=del&id=$product[invId]' title='Click to delete'>Delete</a></td></tr>";        
+                }
+                
+            $prodList .= '</tbody></table>';            
+        }else {
+            
+        $message = '<p class="notify">Sorry, no products were returned.</p>';
+        
+        }
+        include '../view/prod-mgmt.php';
+      break;    
+
+    case 'newprod':
+        include '../view/new-prod.php';
+        //header("Location: http://localhost/ACME/view/new-prod.php");            
+      break;
+
+    case 'newcat':
+        include '../view/new-cat.php';
+        //header("Location: http://localhost/ACME/view/new-cat.php");             
+      break;
+      
+      
     case 'addprod':
-        //echo 'You are in the add product case statement.';
-        //Filter and store the data
-        
-       
-        
 
         $invName = filter_input(INPUT_POST, 'invname', FILTER_SANITIZE_STRING);
         $invDescription = filter_input(INPUT_POST, 'invdescription', FILTER_SANITIZE_STRING);
@@ -65,19 +87,7 @@ switch ($action) {
         $invVendor = filter_input(INPUT_POST, 'invvendor', FILTER_SANITIZE_STRING);
         $invStyle = filter_input(INPUT_POST, 'invstyle', FILTER_SANITIZE_STRING);
         
-//        echo $invName .'<br>';
-//        echo $invDescription .'<br>';
-//        echo $invImage .'<br>';        
-//        echo $invThumbnail .'<br>';
-//        echo $invPrice .'<br>';
-//        echo $invStock .'<br>';
-//        echo $invSize .'<br>';
-//        echo $invWeight .'<br>';
-//        echo $invLocation .'<br>';
-//        echo $categoryId .'<br>';
-//        echo $invVendor .'<br>';
-//        echo $invStyle .'<br>';   
-//        exit;
+
         
         $invPrice = checkInvPrice($invPrice);
         $invStock = checkInvStock($invStock);        
@@ -141,7 +151,16 @@ switch ($action) {
             exit;
         }
         break;        
-        
+    
+    case 'mod':
+        $prodId = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+        $prodInfo = getProductInfo($prodId);
+            if (count($prodInfo) < 1){
+                $message = 'Sorry, no product information could be found.';
+            }
+            include '../view/prod-update.php';
+            exit;
+        break;
         
 }
 

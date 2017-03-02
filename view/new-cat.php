@@ -1,3 +1,11 @@
+<?php 
+    if (empty ($_SESSION['clientData']['clientLevel']) || 
+               $_SESSION['clientData']['clientLevel'] < 2){
+                                  
+    header("Location: http://localhost/ACME");
+                                    
+    } 
+?>
 <!DOCTYPE html>
 <html lang="en">
 <!--
@@ -27,14 +35,7 @@ This page is for managing the product database.
     </head>
     <body>
 
-                            <?php 
-                                if (empty ($_SESSION['clientData']['clientLevel']) || 
-                                           $_SESSION['clientData']['clientLevel'] < 2){
-                                  
-                                header("Location: http://localhost/ACME");
-                                    
-                                } 
-                            ?> 
+                             
 
         
         <div id="wrapper">

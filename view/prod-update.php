@@ -27,7 +27,15 @@ This page is for managing the product database.
 -->
     <head>
         <meta charset="UTF-8">
-        <title>ACME Add Products</title>
+        <title>
+            <?php 
+            if(isset($prodInfo['invName'])){
+                echo "Modify $prodInfo[invName] ";
+                } elseif(isset($prodName)) {
+                    echo $prodName;
+                    }
+            ?> | ACME, Inc.
+        </title>
             <meta name="author" content="Boyd Lake">
             <meta name="description" content="This page is for adding new products to the ACME databse.">
             <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -55,7 +63,14 @@ This page is for managing the product database.
             
             <main class="maincontent">
 
-                <h1 class="login-title">Add a product.</h1>
+                <h1 class="login-title">
+                    <?php if(isset($prodInfo['invName'])){ 
+                        echo "Modify $prodInfo[invName] ";
+                        } elseif(isset($prodName)) { 
+                            echo $prodName;
+                            }
+                     ?>                    
+                </h1>
                 <section class="login-buttons">
                     <h3>Please fill in the fields below.</h3>
                     
@@ -69,45 +84,54 @@ This page is for managing the product database.
                     
                     <form method="post" action="/acme/products/index.php" id="addform">
                         <label for="invname">Inventory Name</label>
-                        <input type="text" name="invname" id="invname" 
-                            <?php if(isset($invName)){echo "value='$invName'";} ?> required>
+                        <input type="text" name="invname" id="invname" required
+                       
+                            <?php if(isset($invName)){ echo "value='$invName'"; } elseif(isset($prodInfo['invName'])) {echo "value='$prodInfo[invName]'"; }?>>
                         
                         <label for="invdescription">Inventory Description</label><br>
-                        <textarea name="invdescription" id="invdescription" form="addform" 
-                        required><?php if(isset($invDescription)){echo $invDescription;} ?></textarea><br>
-                        
-                        <label for="invimage">Inventory Image</label>
-                        <input type="text" name="invimage" id="invimage" 
-                            <?php if(isset($invImage)){echo "value='$invImage'";} ?> required>
+                        <textarea name="invdescription" id="invdescription" form="addform" required>
+                            <?php if(isset($invDescription)){ echo "value='$invDescription'"; } 
+                                elseif(isset($prodInfo['invDescription'])) {echo "value='$prodInfo[invDescription]'"; }?>
+                            </textarea><br>
 
-                        <label for="invthumbnail">Inventory Thumbnail</label>
-                        <input type="text" name="invthumbnail" id="invthumbnail" 
-                            <?php if(isset($invThumbnail)){echo "value='$invThumbnail'";} ?> required>
+                        <label for="invimage">Inventory Image</label>
+                        <input type="text" name="invimage" id="invimage" required
+
+                            <?php if(isset($invImage)){ echo "value='$invImage'"; } elseif(isset($prodInfo['invImage'])) {echo "value='$prodInfo[invImage]'"; }?>>
                         
+                        <label for="invthumbnail">Inventory Thumbnail</label>
+                        <input type="text" name="invthumbnail" id="invthumbnail" required 
+
+                            <?php if(isset($invThumbnail)){ echo "value='$invThumbnail'"; } elseif(isset($prodInfo['invThumbnail'])) {echo "value='$prodInfo[invThumbnail]'"; }?>>                        
+
+
                         <label for="invprice">Inventory Price</label>
                         <span class="reduced">Enter this price as any number with a two decimal limit.</span>                     
-                        <input type="text" name="invprice" id="invprice" 
-                            <?php if(isset($invPrice)){echo "value='$invPrice'";} ?> required 
-                            pattern="^\d{1,5}(\.\d{1,2})?$">                        
-                        
+                        <input type="text" name="invprice" id="invprice" required pattern="^\d{1,5}(\.\d{1,2})?$"
+
+                            <?php if(isset($invPrice)){ echo "value='$invPrice'"; } elseif(isset($prodInfo['invPrice'])) {echo "value='$prodInfo[invPrice]'"; }?>>  
+                            
                         <label for="invstock">Inventory Stock</label>
                         <span class="reduced">Enter the stock amount as any positive integer.</span>                          
-                        <input type="text" name="invstock" id="invstock" 
-                            <?php if(isset($invStock)){echo "value='$invStock'";} ?> required 
-                            pattern="^[1-9]+[0-9]*$">
+                        <input type="text" name="invstock" id="invstock" required  pattern="^[1-9]+[0-9]*$"
+
+                            <?php if(isset($invStock)){ echo "value='$invStock'"; } elseif(isset($prodInfo['invStock'])) {echo "value='$prodInfo[invStock]'"; }?>>  
 
                         <label for="invsize">Inventory Size</label>
-                        <input type="text" name="invsize" id="invsize" 
-                            <?php if(isset($invSize)){echo "value='$invSize'";} ?> required>
+                        <input type="text" name="invsize" id="invsize" required 
+
+                            <?php if(isset($invSize)){ echo "value='$invSize'"; } elseif(isset($prodInfo['invSize'])) {echo "value='$prodInfo[invSize]'"; }?>>  
 
                         <label for="invweight">Inventory Weight</label>
-                        <input type="text" name="invweight" id="invweight" 
-                            <?php if(isset($invWeight)){echo "value='$invWeight'";} ?> required>
+                        <input type="text" name="invweight" id="invweight" required
 
+                            <?php if(isset($invWeight)){ echo "value='$invWeight'"; } elseif(isset($prodInfo['invWeight'])) {echo "value='$prodInfo[invWeight]'"; }?>>  
+                        
                         <label for="invlocation">Inventory Location</label>
-                        <input type="text" name="invlocation" id="invlocation" 
-                            <?php if(isset($invLocation)){echo "value='$invLocation'";} ?> required>
+                        <input type="text" name="invlocation" id="invlocation" required 
 
+                            <?php if(isset($invLocation)){ echo "value='$invLocation'"; } elseif(isset($prodInfo['invLocation'])) {echo "value='$prodInfo[invLocation]'"; }?>> 
+                        
                         <!-- <label for="catId">Category Id</label><br> -->
                         <br>
                         <?php echo $prodcatList; ?>
@@ -115,16 +139,18 @@ This page is for managing the product database.
                         <!--  <input type="text" name="categoryid" id="categoryid" >-->
 
                         <label for="invvendor">Inventory Vendor</label>
-                        <input type="text" name="invvendor" id="invvendor" 
-                            <?php if(isset($invVendor)){echo "value='$invVendor'";} ?> required>
+                        <input type="text" name="invvendor" id="invvendor" required 
+
+                            <?php if(isset($invVendor)){ echo "value='$invVendor'"; } elseif(isset($prodInfo['invVendor'])) {echo "value='$prodInfo[invVendor]'"; }?>> 
 
                         <label for="invstyle">Inventory Style</label>
-                        <input type="text" name="invstyle" id="invstyle" 
-                            <?php if(isset($invStyle)){echo "value='$invStyle'";} ?> required>                        
-                        
-                        <button type="submit" name="addproduct" id="addproduct">Submit Product</button>
+                        <input type="text" name="invstyle" id="invstyle" required
+
+                            <?php if(isset($invStyle)){ echo "value='$invStyle'"; } elseif(isset($prodInfo['invStyle'])) {echo "value='$prodInfo[invStyle]'"; }?>>                         
+
+                        <button type="submit" name="updateProduct" id="updateProduct">Update Product</button>
                         <!-- Add the action key - value pair -->
-                        <input type="hidden" name="action" value="addprod">
+                        <input type="hidden" name="action" value="updateProd">
                     </form>                    
 
                 </section>

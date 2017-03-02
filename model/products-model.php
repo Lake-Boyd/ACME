@@ -122,3 +122,25 @@ function addCategory($categoryName){
     return $rowsChanged;
     
 }
+
+function getProductBasics() {
+ $db = acmeConnect();
+ $sql = 'SELECT invName, invId FROM inventory ORDER BY invName ASC';
+ $stmt = $db->prepare($sql);
+ $stmt->execute();
+ $products = $stmt->fetchAll(PDO::FETCH_NAMED);
+ $stmt->closeCursor();
+ return $products;
+}
+
+function getProductInfo($prodId){
+ $db = acmeConnect();
+ $sql = 'SELECT * FROM inventory WHERE invId = :prodId';
+ $stmt = $db->prepare($sql);
+ $stmt->bindValue(':prodId', $prodId, PDO::PARAM_INT);
+ $stmt->execute();
+ $prodInfo = $stmt->fetch(PDO::FETCH_NAMED);
+ $stmt->closeCursor();
+ return $prodInfo;
+}
+

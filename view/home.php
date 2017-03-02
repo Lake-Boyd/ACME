@@ -13,7 +13,7 @@ and open the template in the editor.
             <meta name="viewport" content="width=device-width, initial-scale=1">
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.css" />
             <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js"></script>	
-            <link rel="stylesheet" media="screen" type="text/css" href="css/main.css" />
+            <link rel="stylesheet" media="screen" type="text/css" href="/acme/css/main.css" />
 		
             <script>
 		function myFunction() {
@@ -31,13 +31,13 @@ and open the template in the editor.
 
         <div id="wrapper">
         
-            <?php include 'php/header.php'; ?>
+            <?php include $_SERVER['DOCUMENT_ROOT'].'/acme/php/header.php'; ?>
             
             <main class="maincontent">
                 
                 <h1 class="title">Welcome to Acme!</h1>
                 
-                <img src="images/dinnerrocketfeature.jpg" alt="main content background image">
+                <img src="/acme/images/dinnerrocketfeature.jpg" alt="main content background image">
                 
                 <div class="rocketbutton">
                     
@@ -46,7 +46,7 @@ and open the template in the editor.
                       <li>Quick lighting fuse</li>
                       <li>NHTSA approved seat belts</li>
                       <li>Mobile launch stand included</li>
-                      <li><a href="#"><img id="actionbtn" alt="Add to cart button" src="images/iwantit.gif"></a></li>
+                      <li><a href="#"><img id="actionbtn" alt="Add to cart button" src="/acme/images/iwantit.gif"></a></li>
                     </ul>
                     
                 </div>
@@ -57,22 +57,22 @@ and open the template in the editor.
                 <h3>Featured Recipes</h3>
                 
                 <div class="recipelink">
-                    <img src="images/recipes/bbqsand.jpg" alt="BBQ image">
+                    <img src="/acme/images/recipes/bbqsand.jpg" alt="BBQ image">
                     <a href="#">Pulled Roadrunner BBQ</a>
                 </div>
 
                 <div class="recipelink">
-                    <img src="images/recipes/potpie.jpg" alt="Pot Pie image">
+                    <img src="/acme/images/recipes/potpie.jpg" alt="Pot Pie image">
                     <a href="#">Roadrunner Pot Pie</a>
                 </div>
 
                 <div class="recipelink">
-                    <img src="images/recipes/soup.jpg" alt="Soup image">
+                    <img src="/acme/images/recipes/soup.jpg" alt="Soup image">
                     <a href="#">Roadrunner Soup</a>
                 </div>
 
                 <div class="recipelink">
-                    <img src="images/recipes/taco.jpg" alt="Tacos image">
+                    <img src="/acme/images/recipes/taco.jpg" alt="Tacos image">
                     <a href="#">Roadrunner Tacos</a>
                 </div>                
                 
@@ -94,8 +94,8 @@ and open the template in the editor.
             </section>
             
 
-        
-            <?php include 'php/footer.php'; ?>
+            <?php include $_SERVER['DOCUMENT_ROOT'].'/acme/php/footer.php'; ?>        
+
         
         </div>
         

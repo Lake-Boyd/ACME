@@ -58,23 +58,7 @@ switch ($action) {
         case 'reg':
         include 'view/registration.php';
         break;
-
-        case 'prodman':
-        include 'view/prod-mgmt.php';
-        break;
-
-        case 'newprod':
-        include 'view/new-prod.php';
-        //header("Location: http://localhost/ACME/view/new-prod.php");            
-        break;
-
-        case 'newcat':
-        include 'view/new-cat.php';
-        //header("Location: http://localhost/ACME/view/new-cat.php");             
-        break;
-
-
-    
+   
 }
 
 

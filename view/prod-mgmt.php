@@ -1,3 +1,11 @@
+<?php 
+    if (empty ($_SESSION['clientData']['clientLevel']) || 
+               $_SESSION['clientData']['clientLevel'] < 2){
+                                  
+    header("Location: http://localhost/ACME");
+                                    
+    } 
+?>
 <!DOCTYPE html>
 <html lang="en">
 <!--
@@ -43,17 +51,19 @@ and open the template in the editor.
                          echo $message;
                         }
                         ?>                    
-<!--                    <form method="post" action="/acme/accounts/index.php">
-                         <label for="username">User name</label> 
-                        <input type="text" name="username" id="username" placeholder="Username" required>
-                         <label for="email">Email</label> 
-                        <input type="email" name="email" id="email" placeholder="Email" required>
-                        <input type="submit" value="Sign In" id="sign-in">
-                    </form>-->
+
                     <ul>    
                         <li><a href='http://localhost/ACME/.?action=newprod' title="New Product">Add a new product</a></li>
                         <li><a href='http://localhost/ACME/.?action=newcat' title="New Category">Add a new category</a></li>
                     </ul>
+
+                    <?php
+                        if (isset($message)) {
+                         echo $message;
+                        } if (isset($prodList)) {
+                         echo $prodList;
+                        }
+                        ?>
 
                 </section>
 
