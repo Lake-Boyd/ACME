@@ -4,8 +4,12 @@
                                   
     header("Location: http://localhost/ACME");
                                     
-    } 
-?>
+    }
+
+    if (isset($_SESSION['message'])) {
+     $message = $_SESSION['message'];
+        }    
+    ?>
 <!DOCTYPE html>
 <html lang="en">
 <!--
@@ -46,11 +50,7 @@ and open the template in the editor.
                 <h1 class="login-title">Manage Products</h1>
                 <section class="login-buttons">
                     <h3>Add Products or Categories</h3>
-                    <?php
-                        if (isset($message)) {
-                         echo $message;
-                        }
-                        ?>                    
+                  
 
                     <ul>    
                         <li><a href='http://localhost/ACME/.?action=newprod' title="New Product">Add a new product</a></li>
@@ -78,3 +78,4 @@ and open the template in the editor.
         
     </body>
 </html>
+<?php unset($_SESSION['message']); ?>

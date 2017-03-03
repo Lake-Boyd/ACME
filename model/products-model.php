@@ -144,3 +144,77 @@ function getProductInfo($prodId){
  return $prodInfo;
 }
 
+// Update a product
+function updateProduct($prodName, $prodDescription, $prodImage, $prodThumbnail, 
+        $prodPrice, $prodStock, $prodSize, $prodWeight, $prodLocation, $categoryId, $prodVendor, $prodStyle, $prodId){
+    
+
+// Create a connection object using the acme connection function    
+    
+    $db = acmeConnect();
+
+// The SQL statement    
+    
+    $sql = 'UPDATE inventory SET invName = :prodName, invDescription = :prodDescription, invImage = :prodImage,
+        invThumbnail = :prodThumbnail, invPrice = :prodPrice, invStock = :prodStock, invSize = :prodSize, 
+        invWeight = :prodWeight, invLocation = :prodLocation, categoryId = :categoryId, invVendor = :prodVendor, invStyle = :prodStyle WHERE invId = :prodId';
+
+// Create the prepared statement using the acme connection
+    
+    $stmt = $db->prepare($sql);
+
+// The next four lines replace the placeholders in the SQL
+// statement with the actual values in the variables
+// and tells the database the type of data it is
+    
+    //$stmt->bindValue(':invId', $invId, PDO::PARAM_STR);
+    $stmt->bindValue(':prodName', $prodName, PDO::PARAM_STR);
+    $stmt->bindValue(':prodDescription', $prodDescription, PDO::PARAM_STR);
+    $stmt->bindValue(':prodImage', $prodImage, PDO::PARAM_STR);
+    $stmt->bindValue(':prodThumbnail', $prodThumbnail, PDO::PARAM_STR);  
+    $stmt->bindValue(':prodPrice', $prodPrice, PDO::PARAM_STR);  
+    $stmt->bindValue(':prodStock', $prodStock, PDO::PARAM_STR);  
+    $stmt->bindValue(':prodSize', $prodSize, PDO::PARAM_STR);  
+    $stmt->bindValue(':prodWeight', $prodWeight, PDO::PARAM_STR);  
+    $stmt->bindValue(':prodLocation', $prodLocation, PDO::PARAM_STR);  
+    $stmt->bindValue(':categoryId', $categoryId, PDO::PARAM_STR);  
+    $stmt->bindValue(':prodVendor', $prodVendor, PDO::PARAM_STR);  
+    $stmt->bindValue(':prodStyle', $prodStyle, PDO::PARAM_STR);      
+    $stmt->bindValue(':prodId', $prodId, PDO::PARAM_INT);
+    
+// Insert the data    
+    
+    $stmt->execute();
+
+// Ask how many rows changed as a result of our insert    
+    
+    $rowsChanged = $stmt->rowCount();
+
+// Close the database interaction    
+    
+    $stmt->closeCursor();    
+
+// Return the indication of success (rows changed)    
+    
+    return $rowsChanged;
+    
+}
+
+
+function deleteProduct($prodId){
+// Create a connection object using the acme connection function    
+    $db = acmeConnect();
+// The SQL statement    
+    $sql = 'DELETE FROM inventory WHERE invId = :prodId';
+// Create the prepared statement using the acme connection
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':prodId', $prodId, PDO::PARAM_INT);
+// Insert the data    
+    $stmt->execute();
+// Ask how many rows changed as a result of our insert    
+    $rowsChanged = $stmt->rowCount();
+// Close the database interaction    
+    $stmt->closeCursor();    
+// Return the indication of success (rows changed)    
+    return $rowsChanged;    
+}

@@ -162,6 +162,88 @@ switch ($action) {
             exit;
         break;
         
+    case 'updateProd':
+
+        $invName = filter_input(INPUT_POST, 'invname', FILTER_SANITIZE_STRING);
+        $invDescription = filter_input(INPUT_POST, 'invdescription', FILTER_SANITIZE_STRING);
+        $invImage = filter_input(INPUT_POST, 'invimage', FILTER_SANITIZE_STRING);
+        $invThumbnail = filter_input(INPUT_POST, 'invthumbnail', FILTER_SANITIZE_STRING);        
+        $invPrice = filter_input(INPUT_POST, 'invprice', FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+        $invStock = filter_input(INPUT_POST, 'invstock', FILTER_SANITIZE_NUMBER_INT);
+        $invSize = filter_input(INPUT_POST, 'invsize', FILTER_SANITIZE_STRING);
+        $invWeight = filter_input(INPUT_POST, 'invweight', FILTER_SANITIZE_STRING);
+        $invLocation = filter_input(INPUT_POST, 'invlocation', FILTER_SANITIZE_STRING);
+        $categoryId = filter_input(INPUT_POST, 'catId', FILTER_SANITIZE_STRING);
+        $invVendor = filter_input(INPUT_POST, 'invvendor', FILTER_SANITIZE_STRING);
+        $invStyle = filter_input(INPUT_POST, 'invstyle', FILTER_SANITIZE_STRING);
+        
+        $prodId = filter_input(INPUT_POST, 'prodId', FILTER_SANITIZE_NUMBER_INT);
+        
+        $invPrice = checkInvPrice($invPrice);
+        $invStock = checkInvStock($invStock);        
+
+        // Check for missing data
+        if (empty($invName) || empty($invDescription) || empty($invImage) ||
+           empty($invThumbnail) || empty($invPrice) || empty($invStock) || empty($invSize) ||
+           empty($invWeight) || empty($invLocation) || empty($categoryId) || empty($invVendor) ||                   
+            empty($invStyle)) {
+            $message = '<p>Please provide complete and correct information for all item fields! Double-check'
+                    . 'the item category.</p>';
+            include '../view/prod-update.php';
+            exit;
+        }
+
+        // Send the data to the model
+        $updateResult = updateProduct($invName, $invDescription, $invImage, $invThumbnail, 
+        $invPrice, $invStock, $invSize, $invWeight, $invLocation, $categoryId, $invVendor, $invStyle, $prodId);
+
+        // Check and report the result
+        if ($updateResult) {
+          $message = "<p class='notice'>Congratulations, ". $invName . " was successfully updated.</p>";
+          $_SESSION['message'] = $message;
+          header('location: /acme/products/');
+          exit;
+            } else {
+                $message = "<p class='notice'>Error. ". $invName ." was not updated.</p>";
+                include '../view/prod-update.php';
+                exit;
+                }
+    
+     break;
+
+    case 'del':
+        $prodId = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+        $prodInfo = getProductInfo($prodId);
+            if (count($prodInfo) < 1){
+                $message = 'Sorry, no product information could be found.';
+            }
+            include '../view/prod-delete.php';
+            exit;        
+    break;
+    
+    case 'deleteProd':
+
+        $invName = filter_input(INPUT_POST, 'invname', FILTER_SANITIZE_STRING);
+
+        $prodId = filter_input(INPUT_POST, 'prodId', FILTER_SANITIZE_NUMBER_INT);
+
+        // Send the data to the model
+        $deleteResult = deleteProduct($prodId);
+
+        // Check and report the result
+        if ($deleteResult) {
+          $message = "<p class='notice'>Congratulations, $invName was successfully deleted.</p>";
+          $_SESSION['message'] = $message;
+          header('location: /acme/products/');
+          exit;
+            } else {
+                $message = "<p class='notice'>Error. $invName was not deleted.</p>";
+                header('location: /acme/products/');
+                exit;
+                }
+       
+    break;
+        
 }
 
 
