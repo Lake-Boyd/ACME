@@ -53,8 +53,8 @@ and open the template in the editor.
                   
 
                     <ul>    
-                        <li><a href='http://localhost/ACME/.?action=newprod' title="New Product">Add a new product</a></li>
-                        <li><a href='http://localhost/ACME/.?action=newcat' title="New Category">Add a new category</a></li>
+                        <li><a href='.?action=newprod' title="New Product">Add a new product</a></li>
+                        <li><a href='.?action=newcat' title="New Category">Add a new category</a></li>
                     </ul>
 
                     <?php

@@ -57,18 +57,22 @@ This page is for managing the product database.
                     <form method="post" action="/acme/products/index.php" id="addform">
                         <fieldset>
                             <label for="invname">Product Name</label>
-                            <input type="text" name="invname" id="invname" required readonly <?php if(isset($invName)){ echo "value='$invName'"; }?>
-                                   >
+                            <input type="text" name="invname" id="invname" required readonly 
+                                <?php if(isset($invName)){ echo "value='$invName'"; } 
+                                elseif(isset($prodInfo['invName'])) {echo "value='$prodInfo[invName]'"; }?>>
+                                   
 
                             <label for="invdescription">Product Description</label><br>
                             <textarea name="invdescription" id="invdescription" form="addform" required readonly ><?php 
-                                if(isset($invDescription)){ echo $invDescription; }?></textarea><br>
+                            if(isset($invDescription)){ echo $invDescription; } 
+                                elseif(isset($prodInfo['invDescription'])) {echo $prodInfo['invDescription']; }?></textarea><br>
 
                             <button type="submit" name="deleteProduct" id="deleteProduct" >Delete Product</button>
                             <!-- Add the action key - value pair -->
                             <input type="hidden" name="action" value="deleteProd">
                             <input type="hidden" name="prodId" value="<?php 
-                                if(isset($prodInfo['invId'])){ echo $prodInfo['invId'];}?>">
+                            if(isset($prodInfo['invId'])){ echo $prodInfo['invId'];} 
+                                elseif(isset($prodId)){ echo $prodId; } ?>">
                         </fieldset>
                     </form>                    
 
