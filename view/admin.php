@@ -50,6 +50,20 @@ and open the template in the editor.
                         echo $_SESSION['clientData']['clientFirstname'] . " " . $_SESSION['clientData']['clientLastname'];
                     ?></h1>
                 
+                <?php    
+                if (isset($_SESSION['message'])) {
+                $message = $_SESSION['message'];
+                    } echo $message; ?>
+                
+                <h3 class="loggedin-message">
+                    <?php
+                    if (!$_SESSION['loggedin']){
+                        echo "You are logged-in.";
+                        exit;
+                        }
+                    ?>
+                </h3>
+                    
                 <section class="login-buttons">
                     
                     <ul class="userdata">
@@ -67,21 +81,19 @@ and open the template in the editor.
                                 echo " ". $_SESSION['clientData']['clientEmail'];
                             ?></li>                       
 
-                        <li>Level:
-                            <?php 
-                                echo " ". $_SESSION['clientData']['clientLevel'];
-                            ?></li>
+
                         
                     </ul>
 
-                            <?php 
-                                if ($_SESSION['clientData']['clientLevel'] > 1){
+                    <p class='accounts'><a href='../accounts?action=updateClient'>Update Account Information</a></p>                       
+                        <?php 
+                            if ($_SESSION['clientData']['clientLevel'] > 1){
                                   
-                                    echo "<p class='products'><a href='../products/'>Products</a></p>";
+                                echo "<h2 class='admin-message'>Use the link below to manage products.</h2>"
+                                . "<p class='products'><a href='../products/'>Products</a></p>";
                                     
                                 } 
                             ?>                    
-                    
                     
                 </section>
 

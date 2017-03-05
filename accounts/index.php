@@ -89,21 +89,6 @@ switch ($action) {
         
     case 'Login':
  
-//        $email = filter_input(INPUT_POST, 'email');
-//        $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);        
-//        $email = checkEmail($email);
-//        $checkPassword = checkPassword($password);
-//
-//        if (empty($email) || empty($checkPassword)) {
-//            $message = '<p>Please provide information for all empty form fields.</p>';
-//            include '../view/login.php';
-//            exit;
-//        } else {
-//            $message = "Login successful!</p>";
-//            include '../view/login.php';
-//            exit;            
-//            
-//        } 
         
             $email = filter_input(INPUT_POST, 'email');
             $email = checkEmail($email);
@@ -139,6 +124,9 @@ switch ($action) {
             // Store the array into the session
             $_SESSION['clientData'] = $clientData;
             // Send them to the admin view
+            $message = "<p class='notice'>Congratulations, ". $_SESSION['clientData']['clientFirstname']. ". You are logged-in.</p>";
+            $_SESSION['message'] = $message;
+
             include '../view/admin.php';
             exit;        
 
@@ -159,6 +147,111 @@ switch ($action) {
         
         break;
 
+    case 'updateClient':
+        $clientId = $_SESSION['clientData']['clientId'];
+        $clientInfo = getClientInfo($clientId);
+            if (count($clientInfo) < 1){
+                $message = 'Sorry, no client information could be found.';
+            }
+            include '../view/client-update.php';
+            exit;
+        break;
+
+    case 'accUpdate':
+
+        //Filter and store the data
+        $firstname = filter_input(INPUT_POST, 'firstname', FILTER_SANITIZE_STRING);
+        $lastname = filter_input(INPUT_POST, 'lastname', FILTER_SANITIZE_STRING);
+        $email = filter_input(INPUT_POST, 'email');
+        $email = checkEmail($email);
+        $sessionEmail = $_SESSION['clientData']['clientEmail'];
+        $clientid = $_SESSION['clientData']['clientId'];
+        $existingEmail = checkExistingEmail($email);
+        
+        if (($sessionEmail != $email) && ($existingEmail = 1) ){
+               $message = '<p class = "notice">That email already exists. '
+                        . 'Please enter another email address.</p>';
+                $_SESSION['message'] = $message;
+                include '../view/client-update.php';
+                exit;
+                }
+            
+            
+
+        if (empty($firstname) || empty($lastname) || empty($email)) {
+            $message = '<p class="notice">Please provide information for all empty form fields.</p>';
+            $_SESSION['message'] = $message;
+            include '../view/client-update.php';
+            exit;
+        }
+        $clientUpResult = updateClient($clientid, $firstname, $lastname, $email); 
+        $clientData = getClientbyId($clientid);
+
+            // A valid user exists, log them in
+            $_SESSION['loggedin'] = TRUE;
+            // Remove the password from the array
+            // the array_pop function removes the last
+            // element from an array
+            array_pop($clientData);
+            // Store the array into the session
+            $_SESSION['clientData'] = $clientData;
+            // Send them to the admin view
+
+            if ($clientUpResult) {
+                $message = "<p class='notice'>Congratulations, ". $_SESSION['clientData']['clientFirstname']. " your account was successfully updated.</p>";
+                $_SESSION['message'] = $message;
+                include '../view/admin.php';              
+              //header('location: /acme/view/admin.php');
+                }
+
+
+            include '../view/admin.php';
+            exit;        
+       
+        break;    
+    
+    case 'passUpdate':
+
+        $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
+        $clientid = filter_input(INPUT_POST, 'clientId', FILTER_SANITIZE_STRING);
+        $checkPassword = checkPassword($password);
+
+         if (empty($checkPassword)) {
+            $message = '<p>Please provide information for all empty form fields.</p>';
+            include '../view/client-update.php';
+            exit;
+            }        
+        
+        $password = password_hash($password, PASSWORD_DEFAULT);
+
+
+ 
+        $clientUpResult = updatePassword($password, $clientid); 
+        $clientData = getClientbyId($clientid);
+
+            // A valid user exists, log them in
+            $_SESSION['loggedin'] = TRUE;
+            // Remove the password from the array
+            // the array_pop function removes the last
+            // element from an array
+            array_pop($clientData);
+            // Store the array into the session
+            $_SESSION['clientData'] = $clientData;
+            // Send them to the admin view
+            if ($clientUpResult) {
+                $message = "<p class='notice'>Congratulations, ". $_SESSION['clientData']['clientFirstname']. " your password was successfully updated.</p>";
+                $_SESSION['message'] = $message;
+                include '../view/admin.php';              
+              //header('location: /acme/view/admin.php');
+                }
+
+ 
+            exit;             
+            
+            
+        break; 
+        
+    
 }
 
 
