@@ -21,7 +21,7 @@
                 } else {
                   
                     echo "<div class='welcome'><p class='welcome'>Welcome Guest</p></div>"
-                        . "<div id='myaccount'><a href='.?action=login' title='Login'>"
+                        . "<div id='myaccount'><a href='/acme/?action=login' title='Login'>"
                         . "<img src='http://localhost/ACME/images/account.gif' alt='account image'>My Account</a>"
                         . "</div>";                    
                 }   

@@ -243,7 +243,24 @@ switch ($action) {
                 }
        
     break;
+
+    case 'category':
         
+        $type = filter_input(INPUT_GET, 'type', FILTER_SANITIZE_STRING);
+        $products = getProductsByCategory($type);
+        if (!count($products)){
+                $message = "<p class='notice'>Sorry, no $type products could be found.</p>";
+            }else {
+                $prodDisplay = buildProductsDisplay($products);
+            }
+
+        //echo $prodDisplay;
+        //exit;            
+            
+        include '../view/category.php';
+    break;    
+    
+    
 }
 
 

@@ -41,10 +41,10 @@ function checkCatName($catName){
 function makeNavList() {
     $categories = getCategories();
     $navList = '<ul class="topnav" id="myTopnav">';
-    $navList .= "<li><a href='.' title='View the Acme home page'>Home</a></li>";
+    $navList .= "<li><a href='/acme/' title='View the Acme home page'>Home</a></li>";
     foreach ($categories as $category) {
 
-        $navList .= "<li><a href='.?action=$category[categoryName]"
+        $navList .= "<li><a href='/acme/products/index.php?action=category&type=$category[categoryName]"
                 . "' title='View our $category[categoryName] "
                 . "product line'>$category[categoryName]</a></li>";
     }
@@ -53,4 +53,20 @@ function makeNavList() {
             . 'onclick="myFunction()">☰</a></li></ul>';
     
     return $navList;
+}
+
+function buildProductsDisplay($products){
+    
+    $pd = '<ul id="prod-display">';
+    foreach ($products as $product) {
+        $pd .= '<li>';
+        $pd .= "<img src= '$product[invThumbnail]' alt='Image of $product[invName] on Acme.com'>";
+        $pd .= "<hr>";
+        $pd .= "<h2>$product[invName]</h2>";
+        $pd .= "<span>$$product[invPrice]</span>";
+        $pd .= '</li>';
+        }
+    $pd .= '</ul>';
+    return $pd;
+    
 }
