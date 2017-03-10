@@ -262,13 +262,13 @@ switch ($action) {
     
         case 'prodDetail':
         
-        $prodname = filter_input(INPUT_GET, 'type', FILTER_SANITIZE_STRING);
+        $prodId = filter_input(INPUT_GET, 'type', FILTER_SANITIZE_STRING);
         //echo $prodname;
-        $productDetails = getProductDetails($prodname);
+        $productDetails = getProductDetails($prodId);
         //echo $productDetails['invName'];
         //exit; 
         if (!count($productDetails)){
-                $message = "<p class='notice'>Sorry, no $prodname products could be found.</p>";
+                $message = "<p class='notice'>Sorry, no products could be found.</p>";
             }else {
                 $detailDisplay = buildDetailDisplay($productDetails);
             }

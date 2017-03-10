@@ -60,7 +60,7 @@ function buildProductsDisplay($products){
     $pd = '<ul id="prod-display">';
     foreach ($products as $product) {
         $pd .= '<li>';
-        $pd .= "<a href='/acme/products/index.php?action=prodDetail&type=$product[invName]'>"
+        $pd .= "<a href='/acme/products/index.php?action=prodDetail&type=$product[invId]'>"
                 . "<img src= '$product[invThumbnail]' alt='Image of $product[invName] on Acme.com'></a>";
         $pd .= "<hr>";
         $pd .= "<a href='/acme/products/index.php?action=prodDetail&type=$product[invName]'><h2>$product[invName]</h2></a>";
@@ -75,7 +75,7 @@ function buildProductsDisplay($products){
 function buildDetailDisplay($productDetails){
     
     $pdetails = "<h1 id='prod-title'>$productDetails[invName]</h1>";
-    $pdetails .= "<img class='productimage' src=$productDetails[invImage] alt='Image of $productDetails[invName] on Acme.com'></a>";
+    $pdetails .= "<img class='productimage' src=$productDetails[invImage] alt='Image of $productDetails[invName] on Acme.com'>";
     $pdetails .= "<div class='detailbox'><p class='productdescription'>$productDetails[invDescription]</p>";
     $pdetails .= "<ul>";    
     $pdetails .= "<li class ='details'>A $productDetails[invVendor] product.</li>";

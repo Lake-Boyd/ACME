@@ -233,11 +233,11 @@ function getProductsByCategory($type){
     return $products;
 }
 
-function getProductDetails($prodname){
+function getProductDetails($prodId){
     $db = acmeConnect();
-    $sql = 'SELECT invName, invDescription, invImage, invPrice, invVendor, invStyle, invWeight, invSize, invLocation, invStock FROM inventory WHERE invName = :prodname';
+    $sql = 'SELECT invName, invDescription, invImage, invPrice, invVendor, invStyle, invWeight, invSize, invLocation, invStock FROM inventory WHERE invId = :prodId';
     $stmt = $db->prepare($sql);
-    $stmt->bindValue(':prodname', $prodname, PDO::PARAM_STR);
+    $stmt->bindValue(':prodId', $prodId, PDO::PARAM_STR);
     $stmt->execute();
     //$productdetails = $stmt->fetchAll(PDO::FETCH_ASSOC);
     $productdetails = $stmt->fetch(PDO::FETCH_NAMED);

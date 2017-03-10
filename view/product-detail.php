@@ -8,7 +8,7 @@ This page is for viewing the product database.
 -->
     <head>
         <meta charset="UTF-8">
-        <title><?php echo $type; ?> Products | Acme, Inc.</title>
+        <title><?php echo $productDetails['invName']; ?> Products | Acme, Inc.</title>
             <meta name="author" content="Boyd Lake">
             <meta name="description" content="This page is for viewing products in the ACME databse.">
             <meta name="viewport" content="width=device-width, initial-scale=1">
