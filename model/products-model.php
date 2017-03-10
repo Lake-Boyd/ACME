@@ -232,3 +232,15 @@ function getProductsByCategory($type){
     $stmt->closeCursor();
     return $products;
 }
+
+function getProductDetails($prodname){
+    $db = acmeConnect();
+    $sql = 'SELECT invName, invDescription, invImage, invPrice, invVendor, invStyle, invWeight, invSize, invLocation, invStock FROM inventory WHERE invName = :prodname';
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':prodname', $prodname, PDO::PARAM_STR);
+    $stmt->execute();
+    //$productdetails = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $productdetails = $stmt->fetch(PDO::FETCH_NAMED);
+    $stmt->closeCursor();
+    return $productdetails;
+}

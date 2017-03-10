@@ -260,6 +260,24 @@ switch ($action) {
         include '../view/category.php';
     break;    
     
+        case 'prodDetail':
+        
+        $prodname = filter_input(INPUT_GET, 'type', FILTER_SANITIZE_STRING);
+        //echo $prodname;
+        $productDetails = getProductDetails($prodname);
+        //echo $productDetails['invName'];
+        //exit; 
+        if (!count($productDetails)){
+                $message = "<p class='notice'>Sorry, no $prodname products could be found.</p>";
+            }else {
+                $detailDisplay = buildDetailDisplay($productDetails);
+            }
+
+        //echo $prodDisplay;
+        //exit;            
+            
+        include '../view/product-detail.php';
+    break; 
     
 }
 
