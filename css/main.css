@@ -34,8 +34,7 @@ body {
 
 }
 
-.featured-recipes {width: 39%;margin-right: 0%; float: left;}		
-.reviews {width: 60%;float: right;}
+
 
 
 .banner {
@@ -52,12 +51,9 @@ body {
     right:10px;
     top:5px;
 
-
-
-
-
-
 }
+
+
 
 #myaccount {
 
@@ -89,8 +85,6 @@ body {
 }
 
 
-
-
 .logoimage img{
 
     max-width: 35%;
@@ -103,14 +97,16 @@ header nav {
 
     width: 100%;
     float: right;
-    margin-top: 0px;
+    margin: 0px;
+    padding: 0px;
 
 }
 
 
 header nav li {
 
-    display: inline;margin-left: 0px;
+    display: inline;
+    margin-left: 0px;
 
 }
 
@@ -134,15 +130,14 @@ ul.topnav {
 
     margin: 0px;
     padding: 0px;
-    padding-top: 5px;
-    padding-left:5px;
+
     overflow: hidden;
     background-color: #de2226;
 }
 
 ul.topnav li {
     float: left;
-
+    margin: 0px;
 }
 
 ul.topnav li a {
@@ -150,11 +145,18 @@ ul.topnav li a {
     display: inline-block;
     color: #fff;
     text-align: center;
-    padding: 14px 18px;
+    padding-right: 18px;
+    padding-left: 18px;
+    padding-top: 9px;
+    padding-bottom: 14px;
     text-decoration: none;
     transition: 0.3s;
     font-size: .9em;
     font-weight:bold;
+    margin:0px;
+    position: relative;
+    top: 5px;
+    z-index: 3;
 }
 
 
@@ -223,28 +225,37 @@ ul li {
 
 }
 
+
+.featured-recipes {width: 39%;margin-right: 0%; float: left;}		
+.reviews {width: 60%;float: right;}
+
+
+
+
 .featured-recipes {
-
-    padding-bottom: 10px;
-    padding-left:5px;
-
+	
+	padding-bottom: 10px;
+	padding-left:5px;
+	
 }
 
 
-.recipelink {
+    .recipelink {
     text-align: center;	
     display: inline-block;
     width: 45%;
 
-
+	
 }
 
 .recipelink a {
-
-    font-size: .8em;
-    display: block;
-    padding-bottom: 10px;
+	
+	font-size: .8em;
+	display: block;
+	padding-bottom: 10px;
 }
+
+
 
 
 .reviews li {
@@ -328,27 +339,82 @@ td {
 }
 
 
-
-
-
-
     #prod-display{
-        margin: 0;
-        padding: 0;
         display: flex;
-        flex-direction: column;
+        flex-flow: row wrap;
     }
     #prod-display li{
-        margin-bottom: .5em;
+        /* display: inline-block;*/
+        max-width: 200px;
+        flex: 1 0 auto;
+        text-align: center;
+        max-height: 450px;
         border: 1px #ccc solid;
-        list-style-type: none;
-        flex: 1 1 auto;
+        padding-bottom: 10px;
+        margin: auto;
+        
     }
-    #prod-display li img{
-        width: 100%;
-        height: 200px;
-    } 
+    #prod-display a h2 {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: .9em;
+    }
 
+#prod-display img {
+    margin:0px;
+    padding-top: 20px;
+    padding-left: 0px;
+    padding-right: 0px;
+    max-width: 200px;
+    height: 200px;;
+}
+
+#prod-display span {
+    
+    padding-bottom: 10px;
+    font-weight: bold;
+    color: green;
+    
+}
+
+.detailImageBox {
+    max-width:35%;
+    display:inline-block;
+    text-align: center;
+    vertical-align: top;
+    
+}
+
+.detailImageBox h1 {
+    
+    padding-top: 0px;
+    
+}
+
+.detailbox {
+    margin-left: 20px;
+    max-width: 60%;
+    display:inline-block;
+    vertical-align: bottom;
+}
+
+.detailbox .productdescription {
+    
+    padding-bottom: 50px;
+    font-style: italic;
+}
+
+.detailbox .details {
+    
+    padding-bottom: 9px;
+    
+}
+
+.detailbox .price {
+    font-size: 1.8em;
+    color:green;
+    font-weight: bold;
+    
+}
 
 
     
@@ -358,7 +424,7 @@ td {
   ul.topnav li.icon {
     float: right;
     display: inline-block;
-		height:45px;
+
 
   }
 }
@@ -368,7 +434,8 @@ td {
   ul.topnav.responsive li.icon {
     position: absolute;
     right: 0;
-    top: 0;
+    top: -5px;
+    z-index: 3;
   }
 	
 	
@@ -380,10 +447,12 @@ td {
   ul.topnav.responsive li a {
     display: block;
     text-align: left;
+    z-index: 3;  
+      
   }
 }
 
-@media screen and (min-width: 640px) {
+@media screen and (max-width: 640px) {
 
 html{
     box-sizing: border-box;
@@ -393,7 +462,12 @@ html{
     box-sizing: inherit;
 }
     
-    
+
+#help img {
+
+    width: 7%;
+    padding-right: 5px;
+}
     
     main {
         width: 100%;
@@ -419,8 +493,12 @@ html{
 
         clear:right;
     }
-
-
+/*    .topnav {
+        
+        height:40px;
+        
+    }
+*/
     ul.topnav {
 
         padding-top: 0px;
@@ -430,24 +508,89 @@ html{
     }	
 
     ul.topnav li {
-
-        margin:5px;
+    position: relative;
+    top: -5px;
+        margin:0px;
+        padding-bottom: 0px;
         background-color: #de2226;
+        z-index: 3;
 
-    }	
-
+    }
+    
+    ul.topnav li a {
+        
+        padding-top: 15px;
+        padding-bottom: 20px;
+        
+    }
 
     #prod-display{
-        flex-flow: row wrap;
-        justify-content: flex-start;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
     }
+
     #prod-display li{
-        /* display: inline-block; */
-        max-width: 200px;
-        flex: 1 0 auto;
-        text-align: center;
-        max-height: 400px;
+        margin-bottom: .5em;
+        border: 1px #ccc solid;
+        list-style-type: none;
+        flex: 1 1 auto;
+
+    }
+
+    #prod-display li img{
+        width: 100%;
+        height: 200px;
+    }
+    #prod-display a h2 {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: .9em;
+        
     }       
 
+    
+.detailImageBox {
+    max-width:100%;
+    display:block;
+    text-align: center;
+    vertical-align: top;
+    
+}
+
+.detailImageBox h1 {
+    
+    padding-top: 0px;
+    
+}
+
+.detailbox {
+    margin-left: 0px;
+    max-width: 100%;
+    display:block;
+
+}
+
+.detailbox .productdescription {
+    text-align: center;    
+    padding-bottom: 20px;
+    font-style: italic;
+}
+
+.detailbox .details {
+    
+    padding-bottom: 9px;
+    text-align: center;
+    
+}
+
+.detailbox .price {
+    font-size: 1.8em;
+    color:green;
+    font-weight: bold;
+    text-align: center;
+    
+}    
+    
 
 }

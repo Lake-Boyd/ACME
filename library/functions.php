@@ -63,8 +63,8 @@ function buildProductsDisplay($products){
         $pd .= "<a href='/acme/products/index.php?action=prodDetail&type=$product[invId]'>"
                 . "<img src= '$product[invThumbnail]' alt='Image of $product[invName] on Acme.com'></a>";
         $pd .= "<hr>";
-        $pd .= "<a href='/acme/products/index.php?action=prodDetail&type=$product[invName]'><h2>$product[invName]</h2></a>";
-        $pd .= "<span>$product[invPrice]</span>";
+        $pd .= "<a href='/acme/products/index.php?action=prodDetail&type=$product[invId]'><h2>$product[invName]</h2></a>";
+        $pd .= "<span>$$product[invPrice]</span>";
         $pd .= '</li>';
         }
     $pd .= '</ul>';
@@ -73,19 +73,19 @@ function buildProductsDisplay($products){
 }
 
 function buildDetailDisplay($productDetails){
-    
-    $pdetails = "<h1 id='prod-title'>$productDetails[invName]</h1>";
-    $pdetails .= "<img class='productimage' src=$productDetails[invImage] alt='Image of $productDetails[invName] on Acme.com'>";
+    $pdetails = "<div class='detailImageBox'>";
+    $pdetails .= "<h1 id='prod-title'>$productDetails[invName]</h1>";
+    $pdetails .= "<img class='productimage' src=$productDetails[invImage] alt='Image of $productDetails[invName] on Acme.com'></div>";
     $pdetails .= "<div class='detailbox'><p class='productdescription'>$productDetails[invDescription]</p>";
     $pdetails .= "<ul>";    
     $pdetails .= "<li class ='details'>A $productDetails[invVendor] product.</li>";
-    $pdetails .= "<li class ='details'>Primary Material: $productDetails[invStyle]</li>";
-    $pdetails .= "<li class ='details'>Product weight: $productDetails[invWeight]</li>";
-    $pdetails .= "<li class ='details'>Product Size: $productDetails[invSize]</li>";
-    $pdetails .= "<li class ='details'>Ships from: $productDetails[invLocation]</li>";
-    $pdetails .= "<li class ='details'>In stock: $productDetails[invStock]</li>";
+    $pdetails .= "<li class ='details'><strong>Primary Material: </strong>$productDetails[invStyle]</li>";
+    $pdetails .= "<li class ='details'><strong>Product weight: </strong>$productDetails[invWeight]</li>";
+    $pdetails .= "<li class ='details'><strong>Product Size: </strong>$productDetails[invSize]</li>";
+    $pdetails .= "<li class ='details'><strong>Ships from: </strong>$productDetails[invLocation]</li>";
+    $pdetails .= "<li class ='details'><strong>In stock: </strong>$productDetails[invStock]</li>";
     $pdetails .= "</ul>";      
-    $pdetails .= "<p class ='price'>$productDetails[invPrice]</p>";
+    $pdetails .= "<p class ='price'>$$productDetails[invPrice]</p>";
 
     $pdetails .= "</div>";
     return $pdetails;

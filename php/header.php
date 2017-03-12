@@ -38,19 +38,7 @@
     </div>    
 
     <nav>
-	<!--
- 
-        <ul class="topnav" id="myTopnav">
-            <li><a class="active" href="#" title="Home">Home</a></li>
-		<li><a href="#" title="Anvils">Anvils</a></li>						
-		<li><a href="#" title="Cannons">Cannons</a></li>
-		<li><a href="#" title="Protection">Protection</a></li>
-		<li><a href="#" title="Rockets">Rockets</a></li>                
-		<li><a href="#" title="Traps">Traps</a></li>						
-		<li class="icon"><a href="javascript:void(0);" style="font-size:15px;" onclick="myFunction()">☰</a></li>
-	</ul>
- 
-        -->
+
         
        <?php echo $navList; ?>
         
