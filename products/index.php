@@ -11,6 +11,8 @@ require_once '../model/acme-model.php';
 require_once '../model/products-model.php';
 // Get the functions library for use as needed
 require_once '../library/functions.php';
+// Get the uploads model for use as needed
+require_once '../model/uploads-model.php';
 
 //Create or acces a session 
 session_start();
@@ -262,18 +264,23 @@ switch ($action) {
     
         case 'prodDetail':
         
-        $prodId = filter_input(INPUT_GET, 'type', FILTER_SANITIZE_STRING);
+        $prodId = filter_input(INPUT_GET, 'type', FILTER_SANITIZE_NUMBER_INT);
         //echo $prodname;
         $productDetails = getProductDetails($prodId);
-        //echo $productDetails['invName'];
+        $thumbArray = getThumbs($prodId);
+        //var_dump($thumbArray);
         //exit; 
         if (!count($productDetails)){
                 $message = "<p class='notice'>Sorry, no products could be found.</p>";
             }else {
                 $detailDisplay = buildDetailDisplay($productDetails);
             }
-
-        //echo $prodDisplay;
+        if (!count($thumbArray)){
+                $message = "<p class='notice'>Sorry, no thumbnails could be found.</p>";
+            }else {
+                $thumbsDisplay = buildThumbsDisplay($thumbArray);
+            }
+        //echo $thumbsDisplay;
         //exit;            
             
         include '../view/product-detail.php';

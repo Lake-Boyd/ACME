@@ -87,7 +87,7 @@ function buildDetailDisplay($productDetails){
     $pdetails .= "</ul>";      
     $pdetails .= "<p class ='price'>$$productDetails[invPrice]</p>";
 
-    $pdetails .= "</div>";
+    $pdetails .= "</div><hr>";
     return $pdetails;
     
 }
@@ -118,6 +118,19 @@ function buildImageDisplay($imageArray) {
        }
     $id .= '</ul>';
     return $id;
+}
+
+function buildThumbsDisplay($thumbArray) {
+    $thumbs = '<div class="thumbs"><ul id="thumbs-display">';
+    foreach ($thumbArray as $thumb) {
+        //var_dump($thumb);
+        //exit;
+        $thumbs .= '<li>';
+        $thumbs .= "<img src='" . $thumb['imgPath'] . "' title='" . $thumb['imgName'] . " thumbnail image on Acme.com' alt='" . $thumb['imgName'] . " image on Acme.com'>";
+        $thumbs .= '</li>';
+       }
+    $thumbs .= '</ul></div>';
+    return $thumbs;
 }
 
 

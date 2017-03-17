@@ -1,11 +1,11 @@
 <?php
  
-    if (empty ($_SESSION['clientData']['clientLevel']) || 
-               $_SESSION['clientData']['clientLevel'] < 2){
+   // if (empty ($_SESSION['clientData']['clientLevel']) || 
+    //           $_SESSION['clientData']['clientLevel'] < 2){
                                   
-    header("Location: http://localhost/ACME");
+    //header("Location: http://localhost/ACME");
                                     
-    } 
+    //} 
 
 if (isset($_SESSION['message'])) {
     $message = $_SESSION['message'];

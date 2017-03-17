@@ -65,3 +65,22 @@ function checkExistingImage($name){
     return $imageMatch;
 }
 
+
+function getThumbs($prodId) {
+    $db = acmeConnect();
+   // $tn = '%-tn';
+    $sql = "SELECT imgPath, imgName FROM images  WHERE invId = :prodId AND imgName LIKE '%-tn%'";
+    //$sql = 'SELECT imgPath, imgName FROM images  WHERE invId = :invId';
+    //$sql = 'SELECT * FROM images WHERE invId IN '
+    //    . '(SELECT invId FROM images WHERE imgName LIKE "%-tn")';
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':prodId', $prodId);
+//    $stmt->bindValue(':tn', $tn, PDO::PARAM_STR);    
+    $stmt->execute();
+    $thumbArray = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $stmt->closeCursor();
+    //var_dump($thumbArray);
+    //exit;
+    return $thumbArray;
+}
+
