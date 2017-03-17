@@ -44,7 +44,7 @@ This page is for viewing the product database.
                     <?php if(isset($message)){ echo $message; } ?>
                     
                     <?php if(isset($detailDisplay)){ echo $detailDisplay; } ?>    
-
+                    <?php if(isset($thumbsDisplay)){ echo $thumbsDisplay; } ?>
                 </section>
 
             </main>
