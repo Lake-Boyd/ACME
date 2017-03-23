@@ -14,13 +14,13 @@
          
                 if (isset($_SESSION['loggedin'])) {
                 $userFirstName = $_SESSION['clientData']['clientFirstname'];   
-                    echo "<div class='welcome'><p class='welcome'>Welcome $userFirstName</p></div>"
+                    echo "<div class='welcome'><p class='welcome'><a href='/ACME/accounts/?action=loggedin'>Welcome $userFirstName</a></p></div>"
                         . "<div id='myaccount'><a href='/acme/accounts/?action=Logout' title='Logout'>"
                         . "Logout</a>"
                         . "</div>";
                 } else {
                   
-                    echo "<div class='welcome'><p class='welcome'>Welcome Guest</p></div>"
+                    echo "<div class='welcome'><p class='welcome'>_</p></div>"
                         . "<div id='myaccount'><a href='/acme/?action=login' title='Login'>"
                         . "<img src='http://localhost/ACME/images/account.gif' alt='account image'>My Account</a>"
                         . "</div>";                    

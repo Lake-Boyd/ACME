@@ -112,7 +112,7 @@ function buildImageDisplay($imageArray) {
     $id = '<ul id="image-display">';
     foreach ($imageArray as $image) {
         $id .= '<li>';
-        $id .= "<img src='$image[imgPath]' title='$image[invName] image on Acme.com' alt='$image[invName] image on Acme.com'>";
+        $id .= "<img src='".str_replace('\\', '/', $image['imgPath'])."' title='$image[invName] image on Acme.com' alt='$image[invName] image on Acme.com'>";
         $id .= "<p><a href='/acme/uploads?action=delete&id=$image[imgId]&filename=$image[imgName]' title='Delete the image'>Delete $image[imgName]</a></p>";
         $id .= '</li>';
        }
@@ -123,10 +123,10 @@ function buildImageDisplay($imageArray) {
 function buildThumbsDisplay($thumbArray) {
     $thumbs = '<div class="thumbs"><ul id="thumbs-display">';
     foreach ($thumbArray as $thumb) {
-        //var_dump($thumb);
+        //var_dump($thumb); src='".str_replace('\\', '/', $image['imgPath'])."'
         //exit;
         $thumbs .= '<li>';
-        $thumbs .= "<img src='" . $thumb['imgPath'] . "' title='" . $thumb['imgName'] . " thumbnail image on Acme.com' alt='" . $thumb['imgName'] . " image on Acme.com'>";
+        $thumbs .= "<img src='" . str_replace('\\', '/', $thumb['imgPath']) . "' title='" . $thumb['imgName'] . " thumbnail image on Acme.com' alt='" . $thumb['imgName'] . " image on Acme.com'>";
         $thumbs .= '</li>';
        }
     $thumbs .= '</ul></div>';

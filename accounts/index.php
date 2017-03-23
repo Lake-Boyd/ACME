@@ -126,15 +126,36 @@ switch ($action) {
             // Send them to the admin view
             $message = "<p class='notice'>Congratulations, ". $_SESSION['clientData']['clientFirstname']. ". You are logged-in.</p>";
             $_SESSION['message'] = $message;
-
+            $firstname = $_SESSION['clientData']['clientFirstname'];
+            // delete the cookie
+            setcookie('firstname', $firstname, strtotime('-1 year'), '/');
+            
+            //$cookiename = $_COOKIE[0];
+            // echo $cookiename;
+            // exit;
+            //echo $_SESSION['loggedin'][0];
+            
             include '../view/admin.php';
             exit;        
 
-        
         break;        
+
+
+    case 'loggedin':
+        
+        if (isset($_SESSION['loggedin'])){
+            include '../view/admin.php';
+            exit;             
+        }else {
+            header("Location: http://localhost/ACME/");
+            exit;            
+        }
+        
+        break;
+
         
     case 'Logout':
-        
+
         // remove all session variables
         session_unset(); 
 

@@ -1,4 +1,5 @@
 <?php 
+
 //check to see if user is logged in
 if (!$_SESSION['loggedin']){
     header("Location: http://localhost/ACME/");

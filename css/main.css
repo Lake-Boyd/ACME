@@ -377,7 +377,7 @@ td {
 }
 
 .detailImageBox {
-    max-width:45%;
+    max-width:68%;
     display:inline-block;
     text-align: center;
     vertical-align: top;
@@ -392,7 +392,7 @@ td {
 
 .detailbox {
     margin-left: 20px;
-    max-width: 50%;
+    max-width: 30%;
     display:inline-block;
     vertical-align: bottom;
 }
@@ -425,7 +425,7 @@ td {
 .thumbs ul{
     
    display: flex;
-   align-items: start;
+   align-items: flex-start;
    justify-content: center;
    position: relative;
    right:20px;

@@ -1,3 +1,8 @@
+<?php 
+
+//echo $_SESSION['loggedin']; 
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <!--
