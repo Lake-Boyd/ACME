@@ -30,6 +30,35 @@ if ($action == NULL) {
 switch ($action) {
     
     case 'addReview':
+
+        $reviewText = filter_input(INPUT_POST, 'reviewtext', FILTER_SANITIZE_STRING);
+        $invId = filter_input(INPUT_POST, 'invid', FILTER_SANITIZE_NUMBER_INT);
+        $clientId = filter_input(INPUT_POST, 'clientid', FILTER_SANITIZE_NUMBER_INT);
+      
+
+        // Check for missing data
+        if (empty($reviewText) || empty($invId) || empty($clientId)) {
+            $message = '<p>Please provide information for all empty form fields.</p>';
+            include '../view/new-prod.php';
+            exit;
+        }
+
+        // Send the data to the model
+        $insertOutcome = insertReview($reviewText, $invId, $clientId);
+
+        // Check and report the result
+        if ($insertOutcome === 1) {
+            $message = "<p>Thanks for adding a review to the product.</p>";
+            //header("Location: http://localhost/ACME/view/prod-mgmt.php");
+            include '../view/product-detail.php';
+            exit;
+        } else {
+            $message = "<p>Sorry, but the creation of a new product review failed. Please try again.</p>";
+            //header("Location: http://localhost/ACME/view/prod-mgmt.php");
+            include '../view/product-detail.php';
+            exit;
+        }
+
         
     break;    
     
