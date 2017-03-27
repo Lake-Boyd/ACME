@@ -138,14 +138,42 @@ function buildRevDisplay($reviewsArray) {
     $reviews = '<div class="reviews"><ul id="reviews-display">';
     foreach ($reviewsArray as $review) {
         //build reviews list
+        $clientName = getClientName($review['clientId']);
+        $clientRevName = substr($clientName['clientFirstname'], 0, 1) . " ".$clientName['clientLastname'];
         $reviews .= '<li>';
-        // the title and date need to be added here
-        $reviews .= $review['reviewText'];
+        $reviews .= '<p>Review Id: '. $review['reviewId'] . "</p>";
+        $reviews .= '<p class="clienpostname">Posted by '. $clientRevName . ' on ' . $review['reviewDate'] . '</p>';
+
+        $reviews .= '<p class="reviewtext">' . $review['reviewText'] . '</p>';
         $reviews .= '</li>';
         }
     $reviews .= '</ul></div>';
     
     return $reviews;
+}
+
+function buildClientRevsDisplay($clientReviewsArray, $clientRevName){
+    
+    // var_dump($clientReviewsArray);
+    
+        $reviews = '<div class="reviews"><ul class="reviews-display">';
+    foreach ($clientReviewsArray as $review) {
+        //build reviews list
+        $reviews .= '<li>';
+        // the title and date need to be added here
+        $reviews .= '<p>Review Id: '. $review['reviewId'] . "</p>";
+        $reviews .= '<p class="clienpostname">Posted by ' . $clientRevName . ' on ' . $review['reviewDate'] . '</p>';
+
+        $reviews .= '<p class="reviewtext">' . $review['reviewText'] . '</p>';
+        $reviews .= '<p class="updatelinks">'
+                . '<a href="/acme/reviews/index.php?action=editreview&id=' .$review['reviewId'].'">Edit</a><span> | </span>'
+                . '<a href="/acme/reviews/index.php?action=deletereview&id=' .$review['reviewId'].'">Delete</a></p>';
+        $reviews .= '</li>';
+        }
+    $reviews .= '</ul></div>';
+    
+    return $reviews;
+    
 }
 
 function newRevDisplay ($prodId, $clientId){

@@ -95,7 +95,14 @@ and open the template in the editor.
                                     
                                 } 
                             ?>                    
-                    
+
+                    <?php    
+                    if (isset($reviewList)){
+                        echo "<h2>Manage Your Reviews</h2>";
+                        echo $reviewList;
+                        }
+                      ?>
+                        
                 </section>
 
             </main>

@@ -11,7 +11,8 @@ require_once '../model/acme-model.php';
 require_once '../model/accounts-model.php';
 // Get the functions library for use as needed
 require_once '../library/functions.php';
-
+// Get the functions library for use as needed
+require_once '../model/reviews-model.php';
 //Create or acces a session 
 session_start();
 
@@ -129,7 +130,15 @@ switch ($action) {
             $firstname = $_SESSION['clientData']['clientFirstname'];
             // delete the cookie
             setcookie('firstname', $firstname, strtotime('-1 year'), '/');
+            $clientId = $_SESSION['clientData']['clientId'];
+            $clientFirstName = $_SESSION['clientData']['clientFirstname'];
+            $clientRevName = substr($clientFirstName, 0, 1) . " ".$_SESSION['clientData']['clientLastname'];
+            $clientReviewsArray = getReviewByClient($clientId);
+            if (isset($clientReviewsArray)) {
+                    $reviewList = buildClientRevsDisplay($clientReviewsArray, $clientRevName);
+                        } 
             
+
             //$cookiename = $_COOKIE[0];
             // echo $cookiename;
             // exit;

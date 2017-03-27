@@ -438,6 +438,26 @@ td {
     margin-left:auto;
     margin-right:auto;
 }
+
+
+.reviews {
+    margin-top:20px;
+    margin-bottom:20px;
+    margin-left:auto;
+    margin-right:auto;
+    width:100%;
+    display:block;
+    background-color: lightgrey;
+
+}
+
+.reviews .reviewtext {
+    padding: 8px;
+    background-color: white;
+    max-width: 93%;
+
+    
+}
     
         
 @media screen and (max-width:640px) {

@@ -107,6 +107,20 @@ function getClientInfo($clientid){
  return $clientInfo;
 }
 
+function getClientName($clientId){
+    
+  $db = acmeConnect();
+  $sql = 'SELECT clientFirstname, clientLastname FROM clients WHERE clientId = :clientid';
+  $stmt = $db->prepare($sql);
+  $stmt->bindValue(':clientid', $clientId, PDO::PARAM_STR);
+  $stmt->execute();
+  $clientData = $stmt->fetch(PDO::FETCH_ASSOC);
+  $stmt->closeCursor();
+  return $clientData;    
+    
+    
+}
+
 function updateClient($clientid, $firstname, $lastname, $email){
     
 

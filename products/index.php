@@ -13,8 +13,10 @@ require_once '../model/products-model.php';
 require_once '../library/functions.php';
 // Get the uploads model for use as needed
 require_once '../model/uploads-model.php';
-// Get the uploads model for use as needed
+// Get the reviews model for use as needed
 require_once '../model/reviews-model.php';
+// Get the accounts model for use as needed
+require_once '../model/accounts-model.php';
 
 
 //Create or acces a session 
@@ -286,6 +288,7 @@ switch ($action) {
             }
 
         $reviewsArray = getReviewByItem($prodId);
+
         if (isset ($_SESSION['loggedin'])) {
             $clientId = $_SESSION['clientData']['clientId'];
             $existingReview = checkExistingReview($clientId, $prodId);
