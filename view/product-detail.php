@@ -45,6 +45,11 @@ This page is for viewing the product database.
                     
                     <?php if(isset($detailDisplay)){ echo $detailDisplay; } ?>    
                     <?php if(isset($thumbsDisplay)){ echo $thumbsDisplay; } ?>
+                    
+                    <hr>
+                    <h2>Customer Reviews</h2>
+                    <?php if(isset($addRevDisplay)){ echo $addRevDisplay; } ?>
+                    <?php if(isset($reviewsDisplay)){ echo $reviewsDisplay; } ?>
                 </section>
 
             </main>

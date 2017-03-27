@@ -133,6 +133,40 @@ function buildThumbsDisplay($thumbArray) {
     return $thumbs;
 }
 
+function buildRevDisplay($reviewsArray) {
+    
+    $reviews = '<div class="reviews"><ul id="reviews-display">';
+    foreach ($reviewsArray as $review) {
+        //build reviews list
+        $reviews .= '<li>';
+        // the title and date need to be added here
+        $reviews .= $review['reviewText'];
+        $reviews .= '</li>';
+        }
+    $reviews .= '</ul></div>';
+    
+    return $reviews;
+}
+
+function newRevDisplay ($prodId, $clientId){
+
+    $newReviewForm = '<form method="post" action="/acme/reviews/index.php" id="addform">';
+
+    $newReviewForm .= '<fieldset><label for="reviewtext">Review Text</label><br>';
+            
+    $newReviewForm .= '<textarea name="reviewtext" id="reviewtext" form="addform" required></textarea><br>';
+    
+    $newReviewForm .= '<button type="submit" name="addReview" id="addReview">Submit the review</button>';
+                      
+    $newReviewForm .= '<input type="hidden" name="action" value="addReview">';
+            
+    $newReviewForm .= '<input type="hidden" name="invid" value=' . $prodId . '>';
+            
+    $newReviewForm .= '<input type="hidden" name="clientid" value=' . $clientId . '></fieldset></form>';     
+
+    return $newReviewForm;
+}
+
 
 // Build the products select list
 function buildProductsSelect($products) {

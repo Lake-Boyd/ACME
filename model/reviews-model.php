@@ -5,8 +5,6 @@
 
 function insertReview($reviewText, $invId, $clientId ){
 
-    
-
 // Create a connection object using the acme connection function    
     
     $db = acmeConnect();
@@ -49,10 +47,47 @@ function insertReview($reviewText, $invId, $clientId ){
     
 }
 
-function getReviewByItem(){
+function getReviewByItem($prodId){
+    $db = acmeConnect();
+   // $tn = '%-tn';
+    $sql = "SELECT reviewText, reviewDate, clientId FROM reviews  WHERE invId = :prodId ";
+    //$sql = 'SELECT imgPath, imgName FROM images  WHERE invId = :invId';
+    //$sql = 'SELECT * FROM images WHERE invId IN '
+    //    . '(SELECT invId FROM images WHERE imgName LIKE "%-tn")';
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':prodId', $prodId);
+//    $stmt->bindValue(':tn', $tn, PDO::PARAM_STR);    
+    $stmt->execute();
+    $reviewArray = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $stmt->closeCursor();
+    //var_dump($thumbArray);
+    //exit;
+    return $reviewArray;
+}    
     
+
+function checkExistingReview($clientId, $prodId){
+
+    $db = acmeConnect();
+   // $tn = '%-tn';
+    $sql = "SELECT reviewText, reviewDate, clientId FROM reviews  WHERE invId = :prodId AND clientId = :clientId";
+    //$sql = 'SELECT imgPath, imgName FROM images  WHERE invId = :invId';
+    //$sql = 'SELECT * FROM images WHERE invId IN '
+    //    . '(SELECT invId FROM images WHERE imgName LIKE "%-tn")';
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':clientId', $clientId);    
+    $stmt->bindValue(':prodId', $prodId);
+//    $stmt->bindValue(':tn', $tn, PDO::PARAM_STR);    
+    $stmt->execute();
+    $checkReviewArray = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $stmt->closeCursor();
+    //var_dump($thumbArray);
+    //exit;
+    return $checkReviewArray;    
     
 }
+    
+
 
 function getReviewByClient(){
     
