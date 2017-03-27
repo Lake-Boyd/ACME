@@ -13,6 +13,9 @@ require_once '../model/products-model.php';
 require_once '../library/functions.php';
 // Get the uploads model for use as needed
 require_once '../model/uploads-model.php';
+// Get the uploads model for use as needed
+require_once '../model/reviews-model.php';
+
 
 //Create or acces a session 
 session_start();
@@ -268,6 +271,7 @@ switch ($action) {
         //echo $prodname;
         $productDetails = getProductDetails($prodId);
         $thumbArray = getThumbs($prodId);
+
         //var_dump($thumbArray);
         //exit; 
         if (!count($productDetails)){
@@ -280,6 +284,29 @@ switch ($action) {
             }else {
                 $thumbsDisplay = buildThumbsDisplay($thumbArray);
             }
+
+        $reviewsArray = getReviewByItem($prodId);
+        if (isset ($_SESSION['loggedin'])) {
+            $clientId = $_SESSION['clientData']['clientId'];
+            $existingReview = checkExistingReview($clientId, $prodId);
+            if (empty ($existingReview)) {
+                // 
+                $addRevDisplay = newRevDisplay($prodId, $clientId);
+                }            
+         }else {
+                $message = "<p class='notice'>You must be <a href='/acme/?action=login' title='Login'>"
+                        . "logged-in</a> to submit a review for this product.</p>";             
+            }
+
+            
+        if (!count($reviewsArray)){
+                // if a current user review already exists display reviews if they exist. If they don't, report it
+                $message = "<p class='notice'>Sorry, no reviews could be found for this product.</p>";
+                }else {
+                    $reviewsDisplay = buildRevDisplay($reviewsArray);
+                    }         
+         
+            
         //echo $thumbsDisplay;
         //exit;            
             
