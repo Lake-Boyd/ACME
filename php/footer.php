@@ -2,7 +2,7 @@
  
     <div class="footercontainer">
         
-        <hr>
+
 
         <div class="copyright">
             <p>&copy; ACME, All rights reserved.</p>

@@ -153,6 +153,16 @@ switch ($action) {
     case 'loggedin':
         
         if (isset($_SESSION['loggedin'])){
+            
+            $clientId = $_SESSION['clientData']['clientId'];
+            $clientFirstName = $_SESSION['clientData']['clientFirstname'];
+            $clientRevName = substr($clientFirstName, 0, 1) . " ".$_SESSION['clientData']['clientLastname'];
+            $clientReviewsArray = getReviewByClient($clientId);
+            if (isset($clientReviewsArray)) {
+                    $reviewList = buildClientRevsDisplay($clientReviewsArray, $clientRevName);
+                        }             
+            
+            
             include '../view/admin.php';
             exit;             
         }else {

@@ -141,8 +141,9 @@ function buildRevDisplay($reviewsArray) {
         $clientName = getClientName($review['clientId']);
         $clientRevName = substr($clientName['clientFirstname'], 0, 1) . " ".$clientName['clientLastname'];
         $reviews .= '<li>';
-        $reviews .= '<p>Review Id: '. $review['reviewId'] . "</p>";
-        $reviews .= '<p class="clienpostname">Posted by '. $clientRevName . ' on ' . $review['reviewDate'] . '</p>';
+        //$reviews .= '<p>Review Id: '. $review['reviewId'] . "</p>"; 
+        $date = date('F d, Y h:i:s a', strtotime($review['reviewDate']));
+        $reviews .= '<p class="clienpostname">Posted by <strong>'. $clientRevName . '</strong> on ' . $date . '</p>';
 
         $reviews .= '<p class="reviewtext">' . $review['reviewText'] . '</p>';
         $reviews .= '</li>';
@@ -161,13 +162,14 @@ function buildClientRevsDisplay($clientReviewsArray, $clientRevName){
         //build reviews list
         $reviews .= '<li>';
         // the title and date need to be added here
-        $reviews .= '<p>Review Id: '. $review['reviewId'] . "</p>";
-        $reviews .= '<p class="clienpostname">Posted by ' . $clientRevName . ' on ' . $review['reviewDate'] . '</p>';
+        //$reviews .= '<p>Review Id: '. $review['reviewId'] . "</p>";
+        $date = date('F d, Y h:i:s a', strtotime($review['reviewDate']));
+        $reviews .= '<p class="clienpostname">Posted by <strong>' . $clientRevName . '</strong> on ' . $date . '</p>';
 
         $reviews .= '<p class="reviewtext">' . $review['reviewText'] . '</p>';
         $reviews .= '<p class="updatelinks">'
-                . '<a href="/acme/reviews/index.php?action=editreview&id=' .$review['reviewId'].'">Edit</a><span> | </span>'
-                . '<a href="/acme/reviews/index.php?action=deletereview&id=' .$review['reviewId'].'">Delete</a></p>';
+                . '<a href="/acme/reviews/index.php?action=editReview&id=' .$review['reviewId'].'">Edit</a><span> | </span>'
+                . '<a href="/acme/reviews/index.php?action=deleteReview&id=' .$review['reviewId'].'">Delete</a></p>';
         $reviews .= '</li>';
         }
     $reviews .= '</ul></div>';
@@ -182,7 +184,7 @@ function newRevDisplay ($prodId, $clientId){
 
     $newReviewForm .= '<fieldset><label for="reviewtext">Review Text</label><br>';
             
-    $newReviewForm .= '<textarea name="reviewtext" id="reviewtext" form="addform" required></textarea><br>';
+    $newReviewForm .= '<textarea name="reviewtext" id="reviewtext" form="addform" rows="10" cols="75" required></textarea><br>';
     
     $newReviewForm .= '<button type="submit" name="addReview" id="addReview">Submit the review</button>';
                       

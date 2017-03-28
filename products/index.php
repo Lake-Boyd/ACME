@@ -297,7 +297,7 @@ switch ($action) {
                 $addRevDisplay = newRevDisplay($prodId, $clientId);
                 }            
          }else {
-                $message = "<p class='notice'>You must be <a href='/acme/?action=login' title='Login'>"
+                $revMessage = "<p class='notice'>You must be <a href='/acme/?action=login' title='Login'>"
                         . "logged-in</a> to submit a review for this product.</p>";             
             }
 

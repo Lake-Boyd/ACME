@@ -4,7 +4,6 @@
 
  */
 //Create or acces a session 
-session_start();
 
 // Get the database connection file
 require_once '../library/dbconnect.php';
@@ -14,6 +13,10 @@ require_once '../model/acme-model.php';
 require_once '../model/reviews-model.php';
 // Get the functions library for use as needed
 require_once '../library/functions.php';
+
+session_start();
+
+$navList = makeNavList();
 
 
 $action = filter_input(INPUT_POST, 'action');
@@ -39,7 +42,7 @@ switch ($action) {
         // Check for missing data
         if (empty($reviewText) || empty($invId) || empty($clientId)) {
             $message = '<p>Please provide information for all empty form fields.</p>';
-            include '../view/new-prod.php';
+            include '../view/product-detail.php';
             exit;
         }
 
@@ -48,35 +51,83 @@ switch ($action) {
 
         // Check and report the result
         if ($insertOutcome === 1) {
-            $message = "<p>Thanks for adding a review to the product.</p>";
+            $revMessage = "<p>Thanks for adding a review to the product.</p>";
             //header("Location: http://localhost/ACME/view/prod-mgmt.php");
-            include '../view/product-detail.php';
+            //$actionkeystring = "/ACME/products/index.php?action=prodDetail&type=$invId";
+            header ("Location: http://localhost/ACME/products/index.php?action=prodDetail&type=$invId");
             exit;
         } else {
-            $message = "<p>Sorry, but the creation of a new product review failed. Please try again.</p>";
+            $revMessage = "<p>Sorry, but the creation of a new product review failed. Please try again.</p>";
             //header("Location: http://localhost/ACME/view/prod-mgmt.php");
             include '../view/product-detail.php';
             exit;
         }
 
         
-    break;    
+    break; 
     
     case 'editReview':
         
-    break; 
+        $reviewId = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+        $reviewInfo = getReview($reviewId);
+        $reviewText = $reviewInfo['reviewText'];
+        $invId = $reviewInfo['invId'];
+        //echo $reviewId;
+        //echo $reviewText;
+        //var_dump($reviewInfo);
+        //exit;
+        
+            if (count($reviewInfo) < 1){
+                $message = 'Sorry, no product information could be found.';
+            }
+            include '../view/review-update.php';
+            exit;
 
+        
+    break;
+    
     case 'updateReview':
-        
-    break; 
 
-    case 'confirmDelete':
-        
+        $reviewText = filter_input(INPUT_POST, 'reviewtext', FILTER_SANITIZE_STRING);
+        $reviewId = filter_input(INPUT_POST, 'reviewid', FILTER_SANITIZE_NUMBER_INT);
+        $invId = filter_input(INPUT_POST, 'invid', FILTER_SANITIZE_NUMBER_INT);
+        //$invId = $reviewInfo['invId'];
+        // Check for missing data
+        if (empty($reviewText) || empty($reviewId)) {
+            $message = '<p>Please provide complete and correct information for all item fields!</p>';
+            include '../view/review-update.php';
+            exit;
+        }
+
+        // Send the data to the model
+        $updateResult = updateReview($reviewId, $reviewText);
+
+        // Check and report the result
+        if ($updateResult) {
+          $message = "<p class='notice'>Congratulations, the review was successfully updated.</p>";
+          $_SESSION['message'] = $message;
+          header ('Location: http://localhost/ACME/products/index.php?action=prodDetail&type=' . $invId);          
+          // header('location: /acme/products/');
+          exit;
+            } else {
+                $message = "<p class='notice'>Error. The review was not updated.</p>";
+                include '../view/review-update.php';
+                exit;
+                }
+
     break; 
 
     case 'deleteReview':
         
     break; 
+
+ 
+
+    case 'confirmDelete':
+        
+    break; 
+
+
 
     case 'confirm-del':
         
