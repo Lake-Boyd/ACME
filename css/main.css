@@ -266,8 +266,8 @@ ul li {
 }
 
 hr {
-
-    max-width:98%;
+    display:block;
+    width:98%;
     border-width: 2px;
 
 }
@@ -441,8 +441,8 @@ td {
 
 
 .reviews {
-    margin-top:20px;
-    margin-bottom:20px;
+    margin-top:5px;
+    margin-bottom:5px;
     margin-left:auto;
     margin-right:auto;
     width:100%;
@@ -451,11 +451,26 @@ td {
 
 }
 
+.reviews li {
+    
+    list-style-type: none;
+    
+}
+
+.reviews p {
+    
+     font-size: .8em;
+
+    
+}
+
 .reviews .reviewtext {
     padding: 8px;
     background-color: white;
     max-width: 93%;
-
+    font-size: 1em;
+    font-family: Georgia, serif; 
+    font-style: italic;
     
 }
     
