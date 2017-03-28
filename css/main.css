@@ -439,14 +439,21 @@ td {
     margin-right:auto;
 }
 
+.reviews .productname {
+    
+    font-weight: bold;
+    font-size: 1.1em;
+    
+}
 
 .reviews {
     margin-top:5px;
     margin-bottom:5px;
     margin-left:auto;
     margin-right:auto;
-    width:100%;
+    width:98%;
     display:block;
+    padding-left: 17px;
     background-color: lightgrey;
 
 }

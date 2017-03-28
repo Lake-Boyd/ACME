@@ -106,8 +106,8 @@ switch ($action) {
         if ($updateResult) {
           $message = "<p class='notice'>Congratulations, the review was successfully updated.</p>";
           $_SESSION['message'] = $message;
-          header ('Location: http://localhost/ACME/products/index.php?action=prodDetail&type=' . $invId);          
-          // header('location: /acme/products/');
+          // header ('Location: http://localhost/ACME/products/index.php?action=prodDetail&type=' . $invId);          
+          header('location: /ACME/accounts/?action=loggedin');
           exit;
             } else {
                 $message = "<p class='notice'>Error. The review was not updated.</p>";
@@ -118,13 +118,45 @@ switch ($action) {
     break; 
 
     case 'deleteReview':
+
+       $reviewId = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+        $reviewInfo = getReview($reviewId);
+        $reviewText = $reviewInfo['reviewText'];
+        $invId = $reviewInfo['invId'];
+        $invReviewNameInfo = getProductName($invId);
+        //echo $reviewId;
+        //echo $reviewText;
+        //var_dump($reviewInfo);
+        //exit;
         
+            if (count($reviewInfo) < 1){
+                $message = "<p class='notice'>Sorry, no review information could be found.</p>";
+            }
+            include '../view/review-delete.php';
+            exit;
     break; 
 
  
 
     case 'confirmDelete':
+        $invReviewName = filter_input(INPUT_POST, 'invname', FILTER_SANITIZE_STRING);
+        $reviewId = filter_input(INPUT_POST, 'reviewid', FILTER_SANITIZE_NUMBER_INT);
         
+        // Send the data to the model
+        $deleteResult = deleteReview($reviewId);
+
+        // Check and report the result
+        if ($deleteResult) {
+          $message = "<p class='notice'>Congratulations,". $invReviewName ." was successfully deleted.</p>";
+          $_SESSION['message'] = $message;
+          header('location: /acme/reviews/');
+          exit;
+            } else {
+                $message = "<p class='notice'>Error. " . $invReviewName . "was not deleted.</p>";
+                header('location: /acme/reviews/');
+                exit;
+                }
+
     break; 
 
 

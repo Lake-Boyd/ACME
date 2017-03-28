@@ -135,20 +135,19 @@ function buildThumbsDisplay($thumbArray) {
 
 function buildRevDisplay($reviewsArray) {
     
-    $reviews = '<div class="reviews"><ul id="reviews-display">';
+    $reviews = '<div class="reviewwrap">';
     foreach ($reviewsArray as $review) {
         //build reviews list
         $clientName = getClientName($review['clientId']);
         $clientRevName = substr($clientName['clientFirstname'], 0, 1) . " ".$clientName['clientLastname'];
-        $reviews .= '<li>';
+        $reviews .= '<div class="reviews">';
         //$reviews .= '<p>Review Id: '. $review['reviewId'] . "</p>"; 
         $date = date('F d, Y h:i:s a', strtotime($review['reviewDate']));
         $reviews .= '<p class="clienpostname">Posted by <strong>'. $clientRevName . '</strong> on ' . $date . '</p>';
-
         $reviews .= '<p class="reviewtext">' . $review['reviewText'] . '</p>';
-        $reviews .= '</li>';
+        $reviews .= '</div>';
         }
-    $reviews .= '</ul></div>';
+    $reviews .= '</div>';
     
     return $reviews;
 }
@@ -157,22 +156,23 @@ function buildClientRevsDisplay($clientReviewsArray, $clientRevName){
     
     // var_dump($clientReviewsArray);
     
-        $reviews = '<div class="reviews"><ul class="reviews-display">';
+        $reviews = '<div class="reviewwrap">';
     foreach ($clientReviewsArray as $review) {
         //build reviews list
-        $reviews .= '<li>';
+        $productName = $review['invName'];
+        $reviews .= '<div class="reviews">';
         // the title and date need to be added here
         //$reviews .= '<p>Review Id: '. $review['reviewId'] . "</p>";
         $date = date('F d, Y h:i:s a', strtotime($review['reviewDate']));
+        $reviews .= '<p class="productname">' . $productName . ' Review</p>';
         $reviews .= '<p class="clienpostname">Posted by <strong>' . $clientRevName . '</strong> on ' . $date . '</p>';
-
         $reviews .= '<p class="reviewtext">' . $review['reviewText'] . '</p>';
         $reviews .= '<p class="updatelinks">'
                 . '<a href="/acme/reviews/index.php?action=editReview&id=' .$review['reviewId'].'">Edit</a><span> | </span>'
                 . '<a href="/acme/reviews/index.php?action=deleteReview&id=' .$review['reviewId'].'">Delete</a></p>';
-        $reviews .= '</li>';
+        $reviews .= '</div>';
         }
-    $reviews .= '</ul></div>';
+    $reviews .= '</div>';
     
     return $reviews;
     

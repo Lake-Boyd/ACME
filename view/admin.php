@@ -54,7 +54,7 @@ and open the template in the editor.
                 <?php    
                 if (isset($_SESSION['message'])) {
                 $message = $_SESSION['message'];
-                    } echo $message; ?>
+                     echo $message;} ?>
                 
                 <h3 class="loggedin-message">
                     <?php

@@ -47,6 +47,11 @@ function insertReview($reviewText, $invId, $clientId ){
     
 }
 
+function getInvNameByInvId ($invId){
+    
+    
+}
+
 function getReviewByItem($prodId){
     $db = acmeConnect();
    // $tn = '%-tn';
@@ -93,7 +98,10 @@ function getReviewByClient($clientId){
 
     $db = acmeConnect();
    // $tn = '%-tn';
-    $sql = "SELECT ALL reviewId, reviewText, reviewDate, invId, clientId FROM reviews  WHERE clientId = :clientId ";
+   //$sql = "SELECT ALL reviewId, reviewText, reviewDate, invId, clientId FROM reviews  WHERE clientId = :clientId ";
+    $sql = "SELECT reviews.reviewId, reviews.reviewText, reviews.reviewDate, reviews.clientId, reviews.invId, "
+            . "invName FROM inventory INNER JOIN reviews ON reviews.clientId = :clientId AND "
+            . "reviews.invId = inventory.invId ORDER BY reviews.reviewDate DESC";
     //$sql = 'SELECT imgPath, imgName FROM images  WHERE invId = :invId';
     //$sql = 'SELECT * FROM images WHERE invId IN '
     //    . '(SELECT invId FROM images WHERE imgName LIKE "%-tn")';
@@ -162,8 +170,33 @@ function updateReview($reviewId, $reviewText){
     
 }
 
+function getProductName($invId){
+ $db = acmeConnect();
+ $sql = 'SELECT invName FROM inventory WHERE invId = :invId';
+ $stmt = $db->prepare($sql);
+ $stmt->bindValue(':invId', $invId, PDO::PARAM_INT);
+ $stmt->execute();
+ $nameInfo = $stmt->fetch(PDO::FETCH_NAMED);
+ $stmt->closeCursor();
+ return $nameInfo;
+}
 
-function deleteReview(){
-    
+function deleteReview($reviewId){
+
+    // Create a connection object using the acme connection 
+    $db = acmeConnect();
+    // The SQL statement    
+    $sql = 'DELETE FROM reviews WHERE reviewId = :reviewId';
+    // Create the prepared statement using the acme connection
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':reviewId', $reviewId, PDO::PARAM_INT);
+    // Insert the data    
+    $stmt->execute();
+    // Ask how many rows changed as a result of our insert    
+    $rowsChanged = $stmt->rowCount();
+    // Close the database interaction    
+    $stmt->closeCursor();    
+    // Return the indication of success (rows changed)    
+    return $rowsChanged;        
     
 }
