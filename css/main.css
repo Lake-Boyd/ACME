@@ -4,18 +4,24 @@
     Author     : Boyd
 */
 
+@import url('https://fonts.googleapis.com/css?family=Sriracha');
 
 h1, h2, h3, h4, h5, h6 {
 
-    font-family: 'Comic Sans MS', cursive, sans-serif;	
+    font-family: Sriracha, cursive, sans-serif;	
 
 }
 
 h1 {
-
+    font-size:2.6em;
     padding-top:35px;
+}
+
+h2 {
+    font-size:1.6em;
 
 }
+
 
 body {
 
@@ -478,6 +484,22 @@ td {
     font-size: 1em;
     font-family: Georgia, serif; 
     font-style: italic;
+    
+}
+
+.field {
+    
+    background-color: #eee;
+    
+}
+
+#addform button{
+    position: relative;
+    right: 10px;
+    padding:10px;
+    background-color: #ff1e1e;
+    color: white;
+    font-weight: bold;
     
 }
     

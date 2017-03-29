@@ -139,7 +139,7 @@ function buildRevDisplay($reviewsArray) {
     foreach ($reviewsArray as $review) {
         //build reviews list
         $clientName = getClientName($review['clientId']);
-        $clientRevName = substr($clientName['clientFirstname'], 0, 1) . " ".$clientName['clientLastname'];
+        $clientRevName = substr($clientName['clientFirstname'], 0, 1) . $clientName['clientLastname'];
         $reviews .= '<div class="reviews">';
         //$reviews .= '<p>Review Id: '. $review['reviewId'] . "</p>"; 
         $date = date('F d, Y h:i:s a', strtotime($review['reviewDate']));
@@ -182,7 +182,7 @@ function newRevDisplay ($prodId, $clientId){
 
     $newReviewForm = '<form method="post" action="/acme/reviews/index.php" id="addform">';
 
-    $newReviewForm .= '<fieldset><label for="reviewtext">Review Text</label><br>';
+    $newReviewForm .= '<fieldset class="field"><label for="reviewtext">Review Text</label><br>';
             
     $newReviewForm .= '<textarea name="reviewtext" id="reviewtext" form="addform" rows="10" cols="75" required></textarea><br>';
     

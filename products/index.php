@@ -289,8 +289,12 @@ switch ($action) {
 
         $reviewsArray = getReviewByItem($prodId);
 
+        
         if (isset ($_SESSION['loggedin'])) {
             $clientId = $_SESSION['clientData']['clientId'];
+            $clientName = getClientName($clientId);
+            $clientRevName = substr($clientName['clientFirstname'], 0, 1) . $clientName['clientLastname'];
+            $screenNameMessage = '<p class="screen-name">Screen Name: ' . $clientRevName . '</p>';            
             $existingReview = checkExistingReview($clientId, $prodId);
             if (empty ($existingReview)) {
                 // 
