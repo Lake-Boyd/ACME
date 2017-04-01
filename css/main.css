@@ -4,11 +4,11 @@
     Author     : Boyd
 */
 
-@import url('https://fonts.googleapis.com/css?family=Sriracha');
+
 
 h1, h2, h3, h4, h5, h6 {
 
-    font-family: Sriracha, cursive, sans-serif;	
+    font-family: 'Century Gothic', sans-serif;	
 
 }
 
@@ -218,7 +218,7 @@ ul li {
 
     position: absolute;
     right:20px;
-    top: 50px;
+    top: 70px;
     color: #990033;
     font-size: 1.2em;
 
@@ -227,13 +227,13 @@ ul li {
 .rocketbutton h2 {
 
     position: relative;
-    top: 20px;
+    top: 25px;
 
 }
 
 
 .featured-recipes {width: 39%;margin-right: 0%; float: left;}		
-.reviews {width: 60%;float: right;}
+.review {width: 60%;float: right;}
 
 
 
@@ -246,7 +246,7 @@ ul li {
 }
 
 
-    .recipelink {
+.recipelink {
     text-align: center;	
     display: inline-block;
     width: 45%;
@@ -264,7 +264,7 @@ ul li {
 
 
 
-.reviews li {
+.review li {
 
 
     list-style-type: disc;	
@@ -457,9 +457,10 @@ td {
     margin-bottom:5px;
     margin-left:auto;
     margin-right:auto;
-    width:98%;
+    width:97%;
     display:block;
-    padding-left: 17px;
+    padding-left: 27px;
+    padding-bottom: 10px;
     background-color: lightgrey;
 
 }
@@ -471,7 +472,7 @@ td {
 }
 
 .reviews p {
-    
+     padding-top: 15px;
      font-size: .8em;
 
     

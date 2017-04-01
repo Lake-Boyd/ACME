@@ -55,7 +55,7 @@ function getInvNameByInvId ($invId){
 function getReviewByItem($prodId){
     $db = acmeConnect();
    // $tn = '%-tn';
-    $sql = "SELECT reviewId, reviewText, reviewDate, invId, clientId FROM reviews  WHERE invId = :prodId ";
+    $sql = "SELECT reviewId, reviewText, reviewDate, invId, clientId FROM reviews  WHERE invId = :prodId ORDER BY reviewDate DESC";
     //$sql = 'SELECT imgPath, imgName FROM images  WHERE invId = :invId';
     //$sql = 'SELECT * FROM images WHERE invId IN '
     //    . '(SELECT invId FROM images WHERE imgName LIKE "%-tn")';
@@ -100,8 +100,8 @@ function getReviewByClient($clientId){
    // $tn = '%-tn';
    //$sql = "SELECT ALL reviewId, reviewText, reviewDate, invId, clientId FROM reviews  WHERE clientId = :clientId ";
     $sql = "SELECT reviews.reviewId, reviews.reviewText, reviews.reviewDate, reviews.clientId, reviews.invId, "
-            . "invName FROM inventory INNER JOIN reviews ON reviews.clientId = :clientId AND "
-            . "reviews.invId = inventory.invId ORDER BY reviews.reviewDate DESC";
+         . "invName FROM inventory INNER JOIN reviews ON reviews.clientId = :clientId AND "
+         . "reviews.invId = inventory.invId ORDER BY reviews.reviewDate DESC";
     //$sql = 'SELECT imgPath, imgName FROM images  WHERE invId = :invId';
     //$sql = 'SELECT * FROM images WHERE invId IN '
     //    . '(SELECT invId FROM images WHERE imgName LIKE "%-tn")';

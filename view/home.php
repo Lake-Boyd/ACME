@@ -82,7 +82,7 @@ and open the template in the editor.
                 </div>                
                 
             </section>
-            <section class="reviews">
+            <section class="review">
                 
                  <h3>Reviews</h3>
  

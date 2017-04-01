@@ -20,7 +20,7 @@
                         . "</div>";
                 } else {
                   
-                    echo "<div class='welcome'><p class='welcome'>_</p></div>"
+                    echo "<div class='welcome'><p class='welcome'> </p></div>"
                         . "<div id='myaccount'><a href='/acme/?action=login' title='Login'>"
                         . "<img src='http://localhost/ACME/images/account.gif' alt='account image'>My Account</a>"
                         . "</div>";                    
