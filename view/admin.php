@@ -58,9 +58,8 @@ and open the template in the editor.
                 
                 <h3 class="loggedin-message">
                     <?php
-                    if (!$_SESSION['loggedin']){
+                    if ($_SESSION['loggedin']){
                         echo "You are logged-in.";
-                        exit;
                         }
                     ?>
                 </h3>

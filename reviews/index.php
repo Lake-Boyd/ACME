@@ -149,11 +149,11 @@ switch ($action) {
         if ($deleteResult) {
           $message = "<p class='notice'>Congratulations,". $invReviewName ." was successfully deleted.</p>";
           $_SESSION['message'] = $message;
-          header('location: /acme/reviews/');
+          header('location: /acme//accounts/?action=loggedin');
           exit;
             } else {
                 $message = "<p class='notice'>Error. " . $invReviewName . "was not deleted.</p>";
-                header('location: /acme/reviews/');
+                header('location: /acme//accounts/?action=loggedin');
                 exit;
                 }
 
