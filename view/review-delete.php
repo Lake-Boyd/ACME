@@ -47,7 +47,7 @@ This page is for managing the product database.
             
             <main class="maincontent">
 
-                <h1 class="login-title"><?php if(isset($invReviewNameInfo['invName'])){ echo "Delete $invReviewNameInfo[invName] Review";} ?></h1>
+                <h1 class="login-title"><?php if(isset($invReviewNameInfo['invName'])){ echo "Delete ". $invReviewNameInfo['invName'] . "Review";} ?></h1>
                 <section class="login-buttons">
                     <p>Confirm Review Deletion. The delete is permanent.</p>
                     
@@ -57,9 +57,9 @@ This page is for managing the product database.
                         }
                         ?>
 
-                    <form method="post" action="/acme/reviews/index.php" id="addform">
+                    <form method="post" action="/acme/reviews/index.php" id="reviewform">
                         <fieldset>
-                            <label for="invdescription">Review Text</label><br>
+                            <label for="reviewtext">Review Text</label><br>
                             <textarea name="reviewtext" id="reviewtext" form="reviewform" rows="10" cols="75" required readonly><?php 
                             if(isset($reviewText)){ echo $reviewText; } 
                                 elseif(isset($review['reviewText'])) {echo $review['reviewText']; }?></textarea><br>

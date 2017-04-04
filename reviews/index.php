@@ -37,7 +37,7 @@ switch ($action) {
         $reviewText = filter_input(INPUT_POST, 'reviewtext', FILTER_SANITIZE_STRING);
         $invId = filter_input(INPUT_POST, 'invid', FILTER_SANITIZE_NUMBER_INT);
         $clientId = filter_input(INPUT_POST, 'clientid', FILTER_SANITIZE_NUMBER_INT);
-      
+
 
         // Check for missing data
         if (empty($reviewText) || empty($invId) || empty($clientId)) {
@@ -139,20 +139,24 @@ switch ($action) {
  
 
     case 'confirmDelete':
-        $invReviewName = filter_input(INPUT_POST, 'invname', FILTER_SANITIZE_STRING);
+        //$invReviewName = filter_input(INPUT_POST, 'invname', FILTER_SANITIZE_STRING);
         $reviewId = filter_input(INPUT_POST, 'reviewid', FILTER_SANITIZE_NUMBER_INT);
-        
+        $reviewInfo = getReview($reviewId);
+        $invId = $reviewInfo['invId'];
+        $invReviewNameInfo = getProductName($invId);
+        $invReviewName = $invReviewNameInfo['invName'];
+
         // Send the data to the model
         $deleteResult = deleteReview($reviewId);
-
+        
         // Check and report the result
         if ($deleteResult) {
-          $message = "<p class='notice'>Congratulations,". $invReviewName ." was successfully deleted.</p>";
+          $message = "<p class='notice'>Congratulations! The ". $invReviewName ." review was successfully deleted.</p>";
           $_SESSION['message'] = $message;
           header('location: /acme//accounts/?action=loggedin');
           exit;
             } else {
-                $message = "<p class='notice'>Error. " . $invReviewName . "was not deleted.</p>";
+                $message = "<p class='notice'>Error. The " . $invReviewName . " review was not deleted.</p>";
                 header('location: /acme//accounts/?action=loggedin');
                 exit;
                 }
