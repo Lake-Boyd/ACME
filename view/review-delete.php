@@ -57,7 +57,7 @@ This page is for managing the product database.
                         }
                         ?>
 
-                    <form method="post" action="/acme/reviews/index.php" id="reviewform">
+                    <form method="post" action="/acme/reviews/index.php" id="addform">
                         <fieldset>
                             <label for="reviewtext">Review Text</label><br>
                             <textarea name="reviewtext" id="reviewtext" form="reviewform" rows="10" cols="75" required readonly><?php 
